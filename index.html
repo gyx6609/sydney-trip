@@ -6,600 +6,599 @@
 <title>辜翊笑的悉尼旅程 🐻</title>
 <style>
   :root {
-    --sand: #f5e6d3;
-    --ocean: #006699;
-    --coral: #ff6b4a;
-    --gum: #7a9a7e;
-    --gold: #d4a843;
-    --text: #2c2c2c;
-    --light: #fafaf7;
-    --done: #b8d8b8;
+    --pink: #f8a5b6;
+    --coral: #f07b6b;
+    --cream: #fef8f0;
+    --mint: #a8d8b9;
+    --ocean: #7db8c9;
+    --gold: #e8c56d;
+    --text: #4a3540;
+    --light: #fffaf5;
+    --card: #ffffff;
+    --shadow: 0 3px 16px rgba(0,0,0,.06);
   }
   * { margin:0; padding:0; box-sizing:border-box; }
+
   body {
-    font-family: -apple-system, "Microsoft YaHei", "PingFang SC", sans-serif;
-    background: var(--light);
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(180deg, #fef5f0 0%, #fdf0e8 30%, #fce8dc 100%);
+    background-attachment: fixed;
     color: var(--text);
-    line-height: 1.8;
+    line-height: 1.7;
+    min-height: 100vh;
   }
 
   /* Hero */
   .hero {
-    background: linear-gradient(135deg, #1a3a4a 0%, #0d5e7a 40%, #1a6b8a 70%, #7a9a7e 100%);
+    background: linear-gradient(160deg, #f8a5b6 0%, #f07b6b 40%, #e8995e 100%);
     color: white;
-    padding: 48px 20px 40px;
+    padding: 40px 20px 50px;
     text-align: center;
     position: relative;
     overflow: hidden;
+    border-radius: 0 0 40px 40px;
   }
-  .hero::before {
+  .hero::after {
     content: '';
     position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 80px;
-    background: linear-gradient(to top, var(--light), transparent);
+    bottom: -2px; left: 0; right: 0;
+    height: 40px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40'%3E%3Cpath fill='%23fce8dc' d='M0,20 C240,40 480,0 720,20 C960,40 1200,0 1440,20 L1440,40 L0,40 Z'/%3E%3C/svg%3E") bottom/cover;
   }
-  .hero h1 { font-size: 2.2em; letter-spacing: 2px; margin-bottom: 4px; }
-  .hero .sub { font-size: 1.05em; opacity: .85; margin-bottom: 12px; }
-  .hero .dates { font-size: .95em; opacity: .7; }
-  .hero .accent { display: inline-block; font-size: 2em; margin: 0 4px; animation: bounce 2s infinite; }
-  @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  .hero .wombat { font-size: 3em; display: block; margin-bottom: 8px; }
+  .hero .mascot { font-size: 64px; display: block; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .hero h1 { font-size: 1.9em; letter-spacing: 2px; margin: 6px 0 2px; font-weight: 700; }
+  .hero .sub { font-size: .95em; opacity: .9; }
+  .hero .dates { font-size: .82em; opacity: .7; margin-top: 4px; }
 
-  /* Progress bar */
-  .progress-wrap {
-    max-width: 700px;
-    margin: -20px auto 0;
-    padding: 0 20px;
+  /* Countdown */
+  .countdown-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: -20px auto 16px;
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
-  .progress-bar {
+  .countdown-item {
     background: white;
-    border-radius: 20px;
-    padding: 16px 24px;
-    box-shadow: 0 4px 20px rgba(0,0,0,.08);
+    border-radius: 16px;
+    padding: 10px 14px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    min-width: 56px;
+  }
+  .countdown-num { font-size: 1.5em; font-weight: 700; color: var(--coral); }
+  .countdown-label { font-size: .65em; color: #999; margin-top: -2px; }
+
+  /* Progress ring */
+  .progress-section {
+    max-width: 440px;
+    margin: 0 auto 20px;
+    padding: 0 16px;
     display: flex;
     align-items: center;
     gap: 14px;
   }
-  .progress-fill {
-    flex: 1;
-    height: 10px;
-    background: #e0e0e0;
-    border-radius: 5px;
-    overflow: hidden;
+  .ring-wrap {
+    position: relative;
+    width: 64px; height: 64px;
+    flex-shrink: 0;
   }
-  .progress-fill div {
-    height: 100%;
-    background: var(--gum);
-    border-radius: 5px;
-    transition: width .4s;
+  .ring-wrap svg { transform: rotate(-90deg); width:64px; height:64px; }
+  .ring-bg { fill:none; stroke:#f0e0d0; stroke-width:5; }
+  .ring-fg { fill:none; stroke:var(--mint); stroke-width:5; stroke-linecap:round; transition: stroke-dashoffset .6s; }
+  .ring-text {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1.1em; color: var(--coral);
   }
-  .progress-text { font-weight: 700; font-size: .95em; white-space: nowrap; color: var(--ocean); }
-  .reset-btn {
-    background: none;
-    border: 1px solid #ccc;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: .8em;
+  .progress-info { flex:1; }
+  .progress-title { font-weight: 700; font-size: .95em; }
+  .progress-sub { font-size: .78em; color: #999; }
+
+  /* Share btn */
+  .share-btn {
+    display: block;
+    margin: 0 auto 20px;
+    padding: 10px 28px;
+    border: none;
+    border-radius: 24px;
+    background: linear-gradient(135deg, var(--coral), #e88a6e);
+    color: white;
+    font-size: .9em;
+    font-weight: 600;
     cursor: pointer;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 14px rgba(240,123,107,.35);
     transition: all .2s;
   }
-  .reset-btn:hover { background: #fee; border-color: var(--coral); color: var(--coral); }
+  .share-btn:active { transform: scale(.96); }
 
-  /* Info bar */
-  .info-bar {
-    max-width: 700px;
-    margin: 20px auto;
-    padding: 0 20px;
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  .info-tag {
-    background: white;
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-size: .82em;
-    box-shadow: 0 1px 4px rgba(0,0,0,.05);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .info-tag .icon { font-size: 1.1em; }
+  /* Cards */
+  .container { max-width: 460px; margin: 0 auto 40px; padding: 0 12px; }
 
-  /* Day cards */
-  .container {
-    max-width: 700px;
-    margin: 0 auto 40px;
-    padding: 0 20px;
-  }
   .day-card {
-    background: white;
-    border-radius: 16px;
-    margin-bottom: 18px;
-    box-shadow: 0 2px 12px rgba(0,0,0,.04);
+    background: var(--card);
+    border-radius: 20px;
+    margin-bottom: 14px;
+    box-shadow: var(--shadow);
     overflow: hidden;
-    transition: all .3s;
-    border-left: 5px solid var(--ocean);
+    transition: all .35s;
+    position: relative;
   }
   .day-card.done {
-    border-left-color: var(--gum);
-    opacity: .82;
+    opacity: .75;
+    transform: scale(.97);
   }
   .day-card.highlight {
-    border-left-color: var(--coral);
-    box-shadow: 0 4px 20px rgba(255,107,74,.12);
+    box-shadow: 0 4px 24px rgba(240,123,107,.18);
   }
+  .day-card.highlight::after {
+    content: '🐻 重点日';
+    position: absolute;
+    top: 10px; right: 10px;
+    background: var(--coral);
+    color: white;
+    font-size: .7em;
+    padding: 2px 10px;
+    border-radius: 10px;
+    z-index: 1;
+  }
+
   .day-header {
     display: flex;
     align-items: center;
-    padding: 16px 20px;
+    padding: 14px 16px;
     cursor: pointer;
-    gap: 12px;
+    gap: 10px;
     user-select: none;
   }
-  .day-header:hover { background: #fafaf7; }
-  .day-num {
-    width: 42px; height: 42px;
+  .day-icon {
+    width: 46px; height: 46px;
     border-radius: 50%;
-    background: var(--ocean);
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1.1em;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4em;
     flex-shrink: 0;
+    background: #fef5f0;
   }
-  .done .day-num { background: var(--gum); }
-  .highlight .day-num { background: var(--coral); }
-  .day-info { flex: 1; }
-  .day-date { font-size: .82em; color: #888; }
-  .day-title { font-weight: 700; font-size: 1.05em; }
-  .day-check {
-    width: 28px; height: 28px;
-    border: 3px solid #ccc;
-    border-radius: 50%;
+  .day-info { flex:1; }
+  .day-date { font-size: .75em; color: #aaa; }
+  .day-title { font-weight: 700; font-size: .95em; }
+
+  /* Stamp check */
+  .stamp {
+    width: 38px; height: 38px;
     flex-shrink: 0;
+    transition: all .3s;
     cursor: pointer;
-    transition: all .2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
-  .day-check:hover { border-color: var(--gum); }
-  .done .day-check {
-    background: var(--gum);
-    border-color: var(--gum);
+  .stamp circle { fill: #f5ebe0; stroke: #e0d0c0; stroke-width:1.5; transition: fill .3s; }
+  .stamp text { font-size: 22px; opacity: 0; transition: opacity .3s; }
+  .done .stamp circle { fill: var(--mint); stroke: #7ab890; }
+  .done .stamp text { opacity: 1; }
+  .done .stamp { animation: stamp-pop .5s ease; }
+  @keyframes stamp-pop {
+    0% { transform: scale(1.4); }
+    60% { transform: scale(.9); }
+    100% { transform: scale(1); }
   }
-  .done .day-check::after {
-    content: '✓';
-    color: white;
-    font-weight: 700;
-    font-size: .85em;
-  }
-  .day-body {
-    padding: 0 20px 18px 74px;
-    display: none;
-  }
+  .done .day-icon { background: #e8f5e9; }
+
+  .day-body { padding: 0 16px 14px 72px; display: none; }
   .day-card.open .day-body { display: block; }
   .activity {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 7px 0;
-    font-size: .93em;
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 6px 0; font-size: .85em;
   }
-  .act-icon { flex-shrink: 0; width: 22px; text-align: center; }
-  .act-free {
-    background: #e8f5e9;
-    color: #2e7d32;
-    font-size: .7em;
-    padding: 1px 7px;
-    border-radius: 8px;
-    margin-left: 6px;
-    font-weight: 600;
-  }
-  .act-paid {
-    background: #fff3e0;
-    color: #e65100;
-    font-size: .7em;
-    padding: 1px 7px;
-    border-radius: 8px;
-    margin-left: 6px;
-    font-weight: 600;
-  }
-  .map-link {
-    display: inline-block;
-    margin-top: 4px;
-    font-size: .78em;
-    color: var(--ocean);
-    text-decoration: none;
-    border-bottom: 1px dashed var(--ocean);
-  }
-  .map-link:hover { color: var(--coral); border-color: var(--coral); }
+  .act-emoji { flex-shrink: 0; width: 20px; text-align: center; }
+  .tag { font-size: .65em; padding: 1px 7px; border-radius: 8px; font-weight: 600; margin-left: 4px; }
+  .tag-free { background: #e8f5e9; color: #2e7d32; }
+  .tag-paid { background: #fff3e0; color: #e65100; }
+
   .day-note {
-    margin-top: 10px;
-    padding: 10px 14px;
-    background: #f8f4e8;
-    border-radius: 10px;
-    font-size: .82em;
-    color: #6b5e3e;
+    margin-top: 8px; padding: 10px 14px;
+    background: #fef9f4; border-radius: 12px;
+    font-size: .78em; color: #8b7355;
+    border-left: 3px solid var(--gold);
   }
 
-  /* Budget section */
-  .section-title {
-    text-align: center;
-    font-size: 1.3em;
-    font-weight: 700;
-    margin: 36px 0 16px;
-    color: var(--ocean);
+  .photo-spot {
+    margin-top: 8px;
+    height: 100px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #fef0e5 0%, #fde4d0 50%, #fcdcc4 100%);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .78em; color: #c9a87c;
+    border: 2px dashed #e8d5c0;
+    cursor: pointer;
+    transition: background .2s;
   }
-  .budget-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: .9em;
-  }
-  .budget-table th, .budget-table td {
-    padding: 10px 14px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-  }
-  .budget-table th {
-    background: var(--ocean);
-    color: white;
-    font-weight: 600;
-  }
-  .budget-table tr:last-child td { font-weight: 700; border-top: 2px solid var(--ocean); }
-  .budget-table .cat { color: #888; font-weight: 400; }
+  .photo-spot:hover { background: linear-gradient(135deg, #fde8d8 0%, #fcd8c0 50%, #fad0b5 100%); }
 
-  /* Map section */
-  .map-section {
-    background: white;
-    border-radius: 16px;
-    padding: 20px;
-    margin: 0 0 18px;
-    box-shadow: 0 2px 12px rgba(0,0,0,.04);
+  /* Confetti */
+  .confetti-container {
+    position: fixed; inset: 0; pointer-events: none; z-index: 999;
   }
-  .map-section h3 { margin-bottom: 12px; }
-  .route-step {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 6px 0;
-    font-size: .9em;
+  .confetti-piece {
+    position: absolute;
+    width: 10px; height: 10px;
+    border-radius: 3px;
+    animation: confetti-fall 2.5s ease-out forwards;
   }
-  .route-num {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    background: var(--ocean);
+  @keyframes confetti-fall {
+    0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(105vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,.5); z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; pointer-events: none; transition: opacity .3s;
+  }
+  .modal-overlay.show { opacity: 1; pointer-events: auto; }
+  .modal-card {
+    background: white; border-radius: 24px; padding: 24px;
+    max-width: 340px; width: 90%; text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,.2);
+    max-height: 80vh; overflow-y: auto;
+  }
+  .modal-card h3 { font-size: 1.2em; margin-bottom: 12px; }
+  .modal-card .big-mascot { font-size: 60px; display: block; margin-bottom: 8px; }
+  .modal-card button {
+    margin-top: 14px;
+    padding: 10px 30px;
+    border: none; border-radius: 20px;
+    font-size: .9em; font-weight: 600; cursor: pointer;
+  }
+  .modal-card .close-btn {
+    background: #eee; color: #666;
+    margin-left: 8px;
+  }
+  .modal-card .share-action-btn {
+    background: linear-gradient(135deg, var(--coral), #e88a6e);
     color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: .8em;
-    font-weight: 700;
-    flex-shrink: 0;
   }
-  .route-arrow { color: #ccc; text-align: center; font-size: .8em; padding-left: 11px; }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: #333; color: white; padding: 10px 24px;
+    border-radius: 20px; font-size: .85em; z-index: 2000;
+    opacity: 0; transition: opacity .3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
 
   footer {
-    text-align: center;
-    padding: 30px;
-    color: #bbb;
-    font-size: .82em;
+    text-align: center; padding: 24px; color: #ccc; font-size: .78em;
   }
-  footer a { color: var(--ocean); }
 
-  @media (max-width: 500px) {
-    .hero h1 { font-size: 1.6em; }
-    .day-body { padding-left: 20px; }
-    .day-header { padding: 12px 14px; }
+  @media (max-width: 400px) {
+    .hero h1 { font-size: 1.5em; }
+    .day-body { padding-left: 16px; }
+    .countdown-item { min-width: 46px; padding: 8px 10px; }
   }
 </style>
 </head>
 <body>
 
+<!-- Hero -->
 <div class="hero">
-  <span class="wombat">🐻</span>
+  <span class="mascot">🐻</span>
   <h1>辜翊笑的悉尼旅程</h1>
-  <div class="sub">抱袋熊 · 海岸徒步 · 蓝山冬雾</div>
-  <div class="dates">2025.08.08 — 08.17 · 9天 · 悉尼冬末</div>
+  <p class="sub">抱袋熊 · 海岸徒步 · 蓝山冬雾</p>
+  <p class="dates">2025.08.08 — 08.17 ｜ 悉尼冬末</p>
 </div>
 
-<div class="progress-wrap">
-  <div class="progress-bar">
-    <span>📋</span>
-    <span style="font-size:.9em;">完成进度</span>
-    <div class="progress-fill"><div id="progress-inner" style="width:0%"></div></div>
-    <span class="progress-text" id="progress-label">0 / 9</span>
-    <button class="reset-btn" onclick="resetAll()">🔄 重置</button>
+<!-- Countdown -->
+<div class="countdown-wrap" id="countdown">
+  <div class="countdown-item"><div class="countdown-num" id="cd-days">-</div><div class="countdown-label">天</div></div>
+  <div class="countdown-item"><div class="countdown-num" id="cd-hours">-</div><div class="countdown-label">时</div></div>
+  <div class="countdown-item"><div class="countdown-num" id="cd-mins">-</div><div class="countdown-label">分</div></div>
+</div>
+
+<!-- Progress -->
+<div class="progress-section">
+  <div class="ring-wrap">
+    <svg viewBox="0 0 64 64">
+      <circle class="ring-bg" cx="32" cy="32" r="28"/>
+      <circle class="ring-fg" cx="32" cy="32" r="28" stroke-dasharray="175.93" stroke-dashoffset="175.93" id="ring"/>
+    </svg>
+    <div class="ring-text" id="ring-text">0/9</div>
+  </div>
+  <div class="progress-info">
+    <div class="progress-title" id="progress-msg">等待出发 ✈️</div>
+    <div class="progress-sub" id="progress-sub">9 个打卡点等你解锁</div>
   </div>
 </div>
 
-<div class="info-bar">
-  <div class="info-tag"><span class="icon">📍</span> 42/High Street, Randwick NSW 2031</div>
-  <div class="info-tag"><span class="icon">🚌</span> 全程公交+步行</div>
-  <div class="info-tag"><span class="icon">💰</span> 预算约 $850 AUD</div>
-  <div class="info-tag"><span class="icon">🌡️</span> 8-17°C 冬末</div>
-</div>
+<button class="share-btn" onclick="openShareModal()">📸 生成分享卡片</button>
 
+<!-- Day cards -->
 <div class="container" id="days-container">
 
-<!-- ===== DAY 1 ===== -->
+<!-- Day 1 -->
 <div class="day-card open" data-day="1">
   <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-num">1</div>
+    <div class="day-icon">🛬</div>
     <div class="day-info">
       <div class="day-date">8月8日 周五</div>
-      <div class="day-title">🛬 抵达悉尼 · 安顿 + 初探</div>
+      <div class="day-title">抵达悉尼 · 初见南半球</div>
     </div>
-    <div class="day-check" onclick="event.stopPropagation(); toggleDone(this.closest('.day-card'))"></div>
+    <svg class="stamp" viewBox="0 0 38 38" onclick="event.stopPropagation();toggleDone(this.closest('.day-card'))">
+      <circle cx="19" cy="19" r="17"/>
+      <text x="19" y="26" text-anchor="middle">✅</text>
+    </svg>
   </div>
   <div class="day-body">
-    <div class="activity"><span class="act-icon">🛬</span> 6:15 抵达悉尼机场，海关+取行李约30分钟</div>
-    <div class="activity"><span class="act-icon">🚌</span> 机场公交 350 路直达 Randwick（约25分钟）<span class="act-free">$2.5</span></div>
-    <div class="activity"><span class="act-icon">🏠</span> 入住 42/High Street, Randwick，休整</div>
-    <div class="activity"><span class="act-icon">☕</span> Randwick 主街 Belmore Rd 早午餐 <span class="act-paid">$15</span></div>
-    <div class="activity"><span class="act-icon">🌊</span> 步行15分钟到 <b>Coogee Beach</b>，海边散步适应时差<a class="map-link" href="https://maps.app.goo.gl/redirect?q=Coogee+Beach+NSW" target="_blank">📍 地图</a></div>
-    <div class="activity"><span class="act-icon">🍽️</span> Coogee Pavilion 晚餐或 Randwick 泰餐 <span class="act-paid">$18</span></div>
-    <div class="day-note">💡 长途飞行后以轻松为主。Randwick 到 Coogee 步行仅15分钟，黄昏海边特别美。</div>
+    <div class="activity"><span class="act-emoji">🛬</span> 6:15 抵达悉尼机场<span class="tag tag-free">抵达</span></div>
+    <div class="activity"><span class="act-emoji">🚌</span> 公交350路直达Randwick，25分钟 <span class="tag tag-paid">$2.5</span></div>
+    <div class="activity"><span class="act-emoji">🏠</span> 入住 42/High Street, Randwick</div>
+    <div class="activity"><span class="act-emoji">☕</span> Belmore Rd 早午餐 <span class="tag tag-paid">$15</span></div>
+    <div class="activity"><span class="act-emoji">🌊</span> 步行15分钟到 Coogee Beach 海边散步</div>
+    <div class="activity"><span class="act-emoji">🍽️</span> Coogee Pavilion 晚餐 <span class="tag tag-paid">$18</span></div>
+    <div class="day-note">💡 飞了十几个小时，今天轻松为主。Coogee 海滩从家门口走路就到，黄昏超美。</div>
+    <div class="photo-spot">📷 拍下到悉尼的第一张照片吧</div>
   </div>
 </div>
 
-<!-- ===== DAY 2 ===== -->
+<!-- Day 2 -->
 <div class="day-card" data-day="2">
   <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-num">2</div>
+    <div class="day-icon">🥾</div>
     <div class="day-info">
       <div class="day-date">8月9日 周六</div>
-      <div class="day-title">🥾 经典海岸徒步：Coogee → Bondi</div>
+      <div class="day-title">海岸徒步 · Coogee → Bondi</div>
     </div>
-    <div class="day-check" onclick="event.stopPropagation(); toggleDone(this.closest('.day-card'))"></div>
+    <svg class="stamp" viewBox="0 0 38 38" onclick="event.stopPropagation();toggleDone(this.closest('.day-card'))">
+      <circle cx="19" cy="19" r="17"/>
+      <text x="19" y="26" text-anchor="middle">✅</text>
+    </svg>
   </div>
   <div class="day-body">
-    <div class="activity"><span class="act-icon">🥾</span> <b>Coogee → Bondi 海岸徒步</b>（6km，约2-2.5小时）<span class="act-free">免费</span><a class="map-link" href="https://maps.app.goo.gl/redirect?q=Coogee+to+Bondi+Coastal+Walk" target="_blank">📍 路线</a></div>
-    <div class="activity"><span class="act-icon">📸</span> 途经：Gordons Bay → Clovelly → Bronte Beach → Tamarama → Bondi</div>
-    <div class="activity"><span class="act-icon">🐋</span> 沿途留意海面——8月是座头鲸迁徙高峰！</div>
-    <div class="activity"><span class="act-icon">🍔</span> Bondi 午餐：Bondi Tony's 汉堡或海滩野餐 <span class="act-paid">$12</span></div>
-    <div class="activity"><span class="act-icon">🏄</span> Bondi Beach 沙滩漫步 + Bondi Icebergs 泳池外观（进去游泳 $10）</div>
-    <div class="activity"><span class="act-icon">🚌</span> 公交 333 路回 Randwick（约20分钟）<span class="act-free">$2.5</span></div>
-    <div class="day-note">💡 这几乎是悉尼最棒的免费体验！从你家门口 Coogee 出发，一路上悬崖、沙滩、岩石泳池一个接一个。穿运动鞋，带水。</div>
+    <div class="activity"><span class="act-emoji">🥾</span> <b>Coogee → Bondi 海岸徒步 6km</b>（2-2.5h）<span class="tag tag-free">免费</span></div>
+    <div class="activity"><span class="act-emoji">📸</span> 途经 Gordons Bay → Clovelly → Bronte → Tamarama</div>
+    <div class="activity"><span class="act-emoji">🐋</span> 8月是鲸鱼迁徙高峰！沿途常能看到</div>
+    <div class="activity"><span class="act-emoji">🍔</span> Bondi 午餐：海滩汉堡或野餐 <span class="tag tag-paid">$12</span></div>
+    <div class="activity"><span class="act-emoji">🏄</span> Bondi Beach + Icebergs 网红泳池打卡</div>
+    <div class="activity"><span class="act-emoji">🚌</span> 公交333路回 Randwick <span class="tag tag-paid">$2.5</span></div>
+    <div class="day-note">💡 这几乎是悉尼最棒的免费体验！从你家 Coogee 出发，悬崖、沙滩、岩石泳池一个接一个。</div>
+    <div class="photo-spot">📷 Bondi Icebergs 泳池边拍一张经典照</div>
   </div>
 </div>
 
-<!-- ===== DAY 3 ===== -->
+<!-- Day 3 -->
 <div class="day-card" data-day="3">
   <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-num">3</div>
+    <div class="day-icon">🏙️</div>
     <div class="day-info">
       <div class="day-date">8月10日 周日</div>
-      <div class="day-title">🏙️ 悉尼地标一日</div>
+      <div class="day-title">悉尼地标 · 歌剧院 + 大桥</div>
     </div>
-    <div class="day-check" onclick="event.stopPropagation(); toggleDone(this.closest('.day-card'))"></div>
+    <svg class="stamp" viewBox="0 0 38 38" onclick="event.stopPropagation();toggleDone(this.closest('.day-card'))">
+      <circle cx="19" cy="19" r="17"/>
+      <text x="19" y="26" text-anchor="middle">✅</text>
+    </svg>
   </div>
   <div class="day-body">
-    <div class="activity"><span class="act-icon">🚌</span> 公交 373/374 路到 Circular Quay（约35分钟）<span class="act-free">$2.5</span></div>
-    <div class="activity"><span class="act-icon">🏛️</span> <b>悉尼歌剧院</b> 外观+拍照（入内导览 $30，可选）<a class="map-link" href="https://maps.app.goo.gl/redirect?q=Sydney+Opera+House" target="_blank">📍 地图</a></div>
-    <div class="activity"><span class="act-icon">🌿</span> <b>皇家植物园</b> → Mrs Macquarie's Chair（拍歌剧院经典机位）<span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">🌉</span> <b>海港大桥</b> 步行过桥（人行道免费！）走到 Milsons Point <span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">🍜</span> 午餐：Circular Quay 或 The Rocks 美食广场 <span class="act-paid">$14</span></div>
-    <div class="activity"><span class="act-icon">🏛️</span> <b>The Rocks 岩石区</b> 周末市集（仅周末！）+ 古老街巷<span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">🌇</span> <b>Observatory Hill</b> 看夕阳下的海港 <span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">🚌</span> 公交返回 Randwick <span class="act-free">$2.5</span></div>
-    <div class="day-note">💡 周日 Opal 卡全天封顶 $8.40，随便坐！歌剧院、植物园、大桥步行、岩石区全在步行范围内。</div>
+    <div class="activity"><span class="act-emoji">🚌</span> 公交到 Circular Quay <span class="tag tag-paid">$2.5</span></div>
+    <div class="activity"><span class="act-emoji">🏛️</span> <b>悉尼歌剧院</b> 外观+拍照 <span class="tag tag-free">免费</span></div>
+    <div class="activity"><span class="act-emoji">🌿</span> 皇家植物园 → Mrs Macquarie's Chair（最佳机位）</div>
+    <div class="activity"><span class="act-emoji">🌉</span> <b>海港大桥</b> 步行过桥（人行道免费！）</div>
+    <div class="activity"><span class="act-emoji">🍜</span> The Rocks 美食广场午餐 <span class="tag tag-paid">$14</span></div>
+    <div class="activity"><span class="act-emoji">🎪</span> <b>The Rocks Markets</b> 周末市集（仅周末！）</div>
+    <div class="activity"><span class="act-emoji">🌇</span> Observatory Hill 看夕阳海港</div>
+    <div class="day-note">💡 周日 Opal 卡全天封顶 $8.40！歌剧院、大桥、植物园、岩石区全在步行圈。</div>
+    <div class="photo-spot">📷 Mrs Macquarie's Chair 拍歌剧院+大桥同框</div>
   </div>
 </div>
 
-<!-- ===== DAY 4 ===== -->
+<!-- Day 4 - WOMBAT DAY -->
 <div class="day-card highlight" data-day="4">
   <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-num">4</div>
+    <div class="day-icon">🐻</div>
     <div class="day-info">
       <div class="day-date">8月11日 周一</div>
-      <div class="day-title">🐻 抱袋熊日！Featherdale 野生动物园</div>
+      <div class="day-title">⭐ 抱袋熊日！Featherdale 野生动物园</div>
     </div>
-    <div class="day-check" onclick="event.stopPropagation(); toggleDone(this.closest('.day-card'))"></div>
+    <svg class="stamp" viewBox="0 0 38 38" onclick="event.stopPropagation();toggleDone(this.closest('.day-card'))">
+      <circle cx="19" cy="19" r="17"/>
+      <text x="19" y="26" text-anchor="middle">✅</text>
+    </svg>
   </div>
   <div class="day-body">
-    <div class="activity"><span class="act-icon">🚌</span> 公交 → Central → 火车 T1 线到 Doonside（约1小时）<span class="act-free">$5</span></div>
-    <div class="activity"><span class="act-icon">🚶</span> Doonside 站步行10分钟到 Featherdale</div>
-    <div class="activity"><span class="act-icon">🐻</span> <b>Featherdale Wildlife Park</b> 9:00 开园！<span class="act-paid">$38</span><a class="map-link" href="https://maps.app.goo.gl/redirect?q=Featherdale+Sydney+Wildlife+Park" target="_blank">📍 地图</a></div>
-    <div class="activity"><span class="act-icon">🤗</span> ⭐ <b>袋熊亲密接触 Wombat Encounter</b>（必须提前官网预约！）<span class="act-paid">$35</span></div>
-    <div class="activity"><span class="act-icon">🦘</span> 手喂袋鼠、wallaby（饲料免费）</div>
-    <div class="activity"><span class="act-icon">🐨</span> 考拉拍照、看袋獾（Tasmanian Devil）、企鹅</div>
-    <div class="activity"><span class="act-icon">🍱</span> 园内午餐或自带三明治 <span class="act-paid">$12</span></div>
-    <div class="activity"><span class="act-icon">🚂</span> 下午火车返回 Randwick <span class="act-free">$5</span></div>
-    <div class="day-note">🐻 <b>最重要的预约！</b> 立刻去 featherdale.com.au → Animal Encounters → Wombat Encounter 预订。早上去袋熊最活跃。不能抱（澳洲规定），但可以摸、喂、合照，零距离！</div>
+    <div class="activity"><span class="act-emoji">🚂</span> 火车 T1 线到 Doonside（约1h）<span class="tag tag-paid">$5</span></div>
+    <div class="activity"><span class="act-emoji">🐻</span> <b>Featherdale Wildlife Park</b> 9:00开园 <span class="tag tag-paid">$38</span></div>
+    <div class="activity"><span class="act-emoji">🤗</span> ⭐ <b>袋熊亲密接触 Wombat Encounter</b> <span class="tag tag-paid">$35</span></div>
+    <div class="activity"><span class="act-emoji">🦘</span> 免费手喂袋鼠和沙袋鼠</div>
+    <div class="activity"><span class="act-emoji">🐨</span> 考拉合影 · 袋獾 · 企鹅巡游</div>
+    <div class="activity"><span class="act-emoji">🍱</span> 园内午餐或自带 <span class="tag tag-paid">$12</span></div>
+    <div class="activity"><span class="act-emoji">🚂</span> 下午火车返回 <span class="tag tag-paid">$5</span></div>
+    <div class="day-note">🐻 <b>最重要的预约！</b>立刻去 featherdale.com.au → Animal Encounters → Wombat Encounter 预订。早上去袋熊最活跃！</div>
+    <div class="photo-spot">🐻 必拍：和袋熊的零距离合照！</div>
   </div>
 </div>
 
-<!-- ===== DAY 5 ===== -->
+<!-- Day 5 -->
 <div class="day-card" data-day="5">
   <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-num">5</div>
+    <div class="day-icon">🏔️</div>
     <div class="day-info">
       <div class="day-date">8月12日 周二</div>
-      <div class="day-title">🏔️ 蓝山一日游</div>
+      <div class="day-title">蓝山一日游 · 三姐妹峰</div>
     </div>
-    <div class="day-check" onclick="event.stopPropagation(); toggleDone(this.closest('.day-card'))"></div>
+    <svg class="stamp" viewBox="0 0 38 38" onclick="event.stopPropagation();toggleDone(this.closest('.day-card'))">
+      <circle cx="19" cy="19" r="17"/>
+      <text x="19" y="26" text-anchor="middle">✅</text>
+    </svg>
   </div>
   <div class="day-body">
-    <div class="activity"><span class="act-icon">🚂</span> Central 火车站 → Katoomba（蓝山线，约2小时）<span class="act-free">$6.5</span></div>
-    <div class="activity"><span class="act-icon">🚌</span> Katoomba 站 → Echo Point（公交686路或步行20分钟）</div>
-    <div class="activity"><span class="act-icon">🏔️</span> <b>Echo Point 回音角</b>：三姐妹峰全景 <span class="act-free">免费</span><a class="map-link" href="https://maps.app.goo.gl/redirect?q=Echo+Point+Katoomba" target="_blank">📍 地图</a></div>
-    <div class="activity"><span class="act-icon">🚂</span> <b>Scenic World</b>：森林铁路+空中缆车+谷底雨林步道 <span class="act-paid">$55</span></div>
-    <div class="activity"><span class="act-icon">🍜</span> Leura 小镇午餐（蓝山最美小镇，从Katoomba走或坐一站火车）<span class="act-paid">$16</span></div>
-    <div class="activity"><span class="act-icon">🥾</span> Leura Cascades 瀑布短徒步 <span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">🚂</span> 傍晚火车返回悉尼 <span class="act-free">$6.5</span></div>
-    <div class="day-note">💡 蓝山比悉尼冷5-8°C，带外套！火车用 Opal 卡刷卡即可，单程 $6.5 封顶。早班火车去，傍晚回，一日游完全可行。Scenic World 值得花钱——世界上最陡的森林铁路。</div>
+    <div class="activity"><span class="act-emoji">🚂</span> Central → Katoomba 火车约2h <span class="tag tag-paid">$6.5</span></div>
+    <div class="activity"><span class="act-emoji">🏔️</span> <b>Echo Point</b> 三姐妹峰全景 <span class="tag tag-free">免费</span></div>
+    <div class="activity"><span class="act-emoji">🚂</span> <b>Scenic World</b> 世界最陡森林铁路+缆车 <span class="tag tag-paid">$55</span></div>
+    <div class="activity"><span class="act-emoji">🍜</span> Leura 小镇午餐（蓝山最美小镇）<span class="tag tag-paid">$16</span></div>
+    <div class="activity"><span class="act-emoji">🥾</span> Leura Cascades 瀑布短徒步 <span class="tag tag-free">免费</span></div>
+    <div class="activity"><span class="act-emoji">🚂</span> 傍晚火车返回 <span class="tag tag-paid">$6.5</span></div>
+    <div class="day-note">💡 蓝山比悉尼冷5-8°C，带外套！Scenic World 的森林铁路是世界上最陡的——52度斜坡。</div>
+    <div class="photo-spot">📷 Echo Point 三姐妹峰 + 冬日薄雾</div>
   </div>
 </div>
 
-<!-- ===== DAY 6 ===== -->
+<!-- Day 6 -->
 <div class="day-card" data-day="6">
   <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-num">6</div>
+    <div class="day-icon">🐨</div>
     <div class="day-info">
       <div class="day-date">8月13日 周三</div>
-      <div class="day-title">🐨 Taronga 动物园 + Manly 轮渡</div>
+      <div class="day-title">Taronga 动物园 + Manly 轮渡</div>
     </div>
-    <div class="day-check" onclick="event.stopPropagation(); toggleDone(this.closest('.day-card'))"></div>
+    <svg class="stamp" viewBox="0 0 38 38" onclick="event.stopPropagation();toggleDone(this.closest('.day-card'))">
+      <circle cx="19" cy="19" r="17"/>
+      <text x="19" y="26" text-anchor="middle">✅</text>
+    </svg>
   </div>
   <div class="day-body">
-    <div class="activity"><span class="act-icon">🚌</span> 公交到 Circular Quay，轮渡到 Taronga Zoo（10分钟，海上风景绝美）<span class="act-free">$4</span></div>
-    <div class="activity"><span class="act-icon">🦒</span> <b>Taronga Zoo 塔龙加动物园</b>（9:30开门）<span class="act-paid">$38</span>（提前网上买便宜）</div>
-    <div class="activity"><span class="act-icon">📸</span> 长颈鹿区拍"歌剧院+大桥+长颈鹿"神图</div>
-    <div class="activity"><span class="act-icon">🐨</span> 考拉拍照区、海豹表演（免费）、飞鸟表演</div>
-    <div class="activity"><span class="act-icon">⛴️</span> 下午轮渡回 Circular Quay → 转乘 <b>Manly Ferry</b>（30分钟海上之旅）<span class="act-free">$4</span></div>
-    <div class="activity"><span class="act-icon">🏖️</span> <b>Manly Beach</b>：比 Bondi 更悠闲，走 The Corso 步行街</div>
-    <div class="activity"><span class="act-icon">🥾</span> Manly → Shelly Beach 轻松短徒步（1km）<span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">🍕</span> Manly 晚餐后轮渡回 <span class="act-paid">$16</span></div>
-    <div class="day-note">💡 去 Taronga 的轮渡本身就是景点——从海上拍歌剧院最美角度。动物园有5,000+只动物，比 Featherdale 大得多，但袋熊接触不如 Featherdale 亲密。</div>
+    <div class="activity"><span class="act-emoji">⛴️</span> Circular Quay 轮渡到 Taronga Zoo（10分钟）<span class="tag tag-paid">$4</span></div>
+    <div class="activity"><span class="act-emoji">🦒</span> <b>Taronga Zoo</b> 5000+动物 <span class="tag tag-paid">$38</span></div>
+    <div class="activity"><span class="act-emoji">📸</span> 长颈鹿区拍"歌剧院+大桥+长颈鹿"神图</div>
+    <div class="activity"><span class="act-emoji">🐨</span> 考拉拍照区 · 海豹表演 · 飞鸟表演</div>
+    <div class="activity"><span class="act-emoji">⛴️</span> 下午转乘 <b>Manly Ferry</b>（30分钟）<span class="tag tag-paid">$4</span></div>
+    <div class="activity"><span class="act-emoji">🏖️</span> Manly Beach + Shelly Beach 短徒步</div>
+    <div class="activity"><span class="act-emoji">🍕</span> Manly 晚餐后轮渡回 <span class="tag tag-paid">$16</span></div>
+    <div class="day-note">💡 Taronga 轮渡上拍歌剧院是最美角度！动物园建在半岛山坡上，本身也是观景台。</div>
+    <div class="photo-spot">📷 轮渡上拍"海上歌剧院"</div>
   </div>
 </div>
 
-<!-- ===== DAY 7 ===== -->
+<!-- Day 7 -->
 <div class="day-card" data-day="7">
   <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-num">7</div>
+    <div class="day-icon">🎨</div>
     <div class="day-info">
       <div class="day-date">8月14日 周四</div>
-      <div class="day-title">🎨 博物馆免费日 + 城市探索</div>
+      <div class="day-title">博物馆日 · 城市文艺漫步</div>
     </div>
-    <div class="day-check" onclick="event.stopPropagation(); toggleDone(this.closest('.day-card'))"></div>
+    <svg class="stamp" viewBox="0 0 38 38" onclick="event.stopPropagation();toggleDone(this.closest('.day-card'))">
+      <circle cx="19" cy="19" r="17"/>
+      <text x="19" y="26" text-anchor="middle">✅</text>
+    </svg>
   </div>
   <div class="day-body">
-    <div class="activity"><span class="act-icon">🚌</span> 公交到市中心 <span class="act-free">$2.5</span></div>
-    <div class="activity"><span class="act-icon">🖼️</span> <b>新南威尔士美术馆</b>（Art Gallery of NSW）<span class="act-free">免费</span><a class="map-link" href="https://maps.app.goo.gl/redirect?q=Art+Gallery+of+NSW" target="_blank">📍 地图</a></div>
-    <div class="activity"><span class="act-icon">📚</span> <b>新州立图书馆</b>（State Library）阅览室超美 <span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">🌿</span> 穿过 Domain 公园到 <b>澳洲博物馆</b>（Australian Museum）<span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">🍜</span> 午餐：World Square 或 Chinatown 便宜好吃 <span class="act-paid">$12</span></div>
-    <div class="activity"><span class="act-icon">🏮</span> <b>Chinatown 唐人街</b> + Darling Harbour 达令港散步 <span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">🍦</span> <b>Gelato Messina</b>（悉尼最好吃冰淇淋）<span class="act-paid">$7</span></div>
-    <div class="activity"><span class="act-icon">🏠</span> 回 Randwick，Coles/Woolworths 超市采购 <span class="act-paid">$10</span></div>
-    <div class="day-note">💡 三大博物馆全免费！适合想要轻松一天的节奏。Darling Harbour 晚上也很漂亮。</div>
+    <div class="activity"><span class="act-emoji">🖼️</span> <b>新南威尔士美术馆</b> <span class="tag tag-free">免费</span></div>
+    <div class="activity"><span class="act-emoji">📚</span> <b>State Library</b> 绝美阅览室 <span class="tag tag-free">免费</span></div>
+    <div class="activity"><span class="act-emoji">🏛️</span> <b>澳洲博物馆</b> Australian Museum <span class="tag tag-free">免费</span></div>
+    <div class="activity"><span class="act-emoji">🍜</span> Chinatown 唐人街午餐 <span class="tag tag-paid">$12</span></div>
+    <div class="activity"><span class="act-emoji">🏮</span> Darling Harbour 达令港散步</div>
+    <div class="activity"><span class="act-emoji">🍦</span> <b>Gelato Messina</b> 悉尼最好吃冰淇淋 <span class="tag tag-paid">$7</span></div>
+    <div class="activity"><span class="act-emoji">🛒</span> Coles/Woolworths 超市采购 <span class="tag tag-paid">$10</span></div>
+    <div class="day-note">💡 三大博物馆全免费！轻松闲逛的一天，为后面几天充电。</div>
+    <div class="photo-spot">📷 State Library 莎士比亚阅览室</div>
   </div>
 </div>
 
-<!-- ===== DAY 8 ===== -->
+<!-- Day 8 -->
 <div class="day-card" data-day="8">
   <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-num">8</div>
+    <div class="day-icon">🐋</div>
     <div class="day-info">
       <div class="day-date">8月15日 周五</div>
-      <div class="day-title">🐋 观鲸 + Watsons Bay 天涯海角</div>
+      <div class="day-title">天涯海角 · Watsons Bay 观鲸</div>
     </div>
-    <div class="day-check" onclick="event.stopPropagation(); toggleDone(this.closest('.day-card'))"></div>
+    <svg class="stamp" viewBox="0 0 38 38" onclick="event.stopPropagation();toggleDone(this.closest('.day-card'))">
+      <circle cx="19" cy="19" r="17"/>
+      <text x="19" y="26" text-anchor="middle">✅</text>
+    </svg>
   </div>
   <div class="day-body">
-    <div class="activity"><span class="act-icon">🚌</span> 公交到 Circular Quay → 轮渡到 <b>Watsons Bay</b>（20分钟）<span class="act-free">$4</span></div>
-    <div class="activity"><span class="act-icon">🥾</span> <b>The Gap 悬崖</b>：悉尼最壮观的断崖海景 <span class="act-free">免费</span><a class="map-link" href="https://maps.app.goo.gl/redirect?q=The+Gap+Watsons+Bay" target="_blank">📍 地图</a></div>
-    <div class="activity"><span class="act-icon">🐋</span> The Gap 是悉尼最佳陆上观鲸点之一——8月高峰！</div>
-    <div class="activity"><span class="act-icon">🥾</span> <b>South Head Heritage Trail</b>：Hornby Lighthouse 红白灯塔（30分钟环线）<span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">🍟</span> <b>Doyles 炸鱼薯条</b>（Watsons Bay 老字号，外卖窗口便宜）<span class="act-paid">$14</span></div>
-    <div class="activity"><span class="act-icon">🏖️</span> <b>Camp Cove</b> 小海滩，安静美丽</div>
-    <div class="activity"><span class="act-icon">⛴️</span> 轮渡返回 Circular Quay</div>
-    <div class="activity"><span class="act-icon">🛍️</span> Pitt St + QVB 购物/逛 <span class="act-free">免费</span></div>
-    <div class="day-note">💡 Watsons Bay 是悉尼本地人才去的宝藏地。The Gap 悬崖面朝太平洋，8月鲸鱼从岸边就能看到喷水！轮渡一路海港风光绝美。</div>
+    <div class="activity"><span class="act-emoji">⛴️</span> Circular Quay 轮渡到 Watsons Bay <span class="tag tag-paid">$4</span></div>
+    <div class="activity"><span class="act-emoji">🌊</span> <b>The Gap 悬崖</b> 悉尼最壮观断崖 <span class="tag tag-free">免费</span></div>
+    <div class="activity"><span class="act-emoji">🐋</span> 悉尼最佳陆上观鲸点——8月高峰！</div>
+    <div class="activity"><span class="act-emoji">🗼</span> <b>Hornby Lighthouse</b> 红白灯塔（30min环线）<span class="tag tag-free">免费</span></div>
+    <div class="activity"><span class="act-emoji">🍟</span> <b>Doyles 炸鱼薯条</b> 百年老字号 <span class="tag tag-paid">$14</span></div>
+    <div class="activity"><span class="act-emoji">🏖️</span> Camp Cove 小众海滩</div>
+    <div class="activity"><span class="act-emoji">🛍️</span> 下午回市区 Pitt St + QVB 逛</div>
+    <div class="day-note">💡 Watsons Bay 是悉尼本地人才去的宝藏地。The Gap 面朝太平洋，8月站在岸边就能看到鲸鱼喷水！</div>
+    <div class="photo-spot">📷 The Gap 悬崖边等一头鲸鱼跃出水面</div>
   </div>
 </div>
 
-<!-- ===== DAY 9 ===== -->
+<!-- Day 9 -->
 <div class="day-card" data-day="9">
   <div class="day-header" onclick="toggleDay(this)">
-    <div class="day-num">9</div>
+    <div class="day-icon">🛍️</div>
     <div class="day-info">
       <div class="day-date">8月16日 周六</div>
-      <div class="day-title">🛍️ 收尾日 · 市集 + 告别</div>
+      <div class="day-title">收官日 · 市集 + 告别</div>
     </div>
-    <div class="day-check" onclick="event.stopPropagation(); toggleDone(this.closest('.day-card'))"></div>
+    <svg class="stamp" viewBox="0 0 38 38" onclick="event.stopPropagation();toggleDone(this.closest('.day-card'))">
+      <circle cx="19" cy="19" r="17"/>
+      <text x="19" y="26" text-anchor="middle">✅</text>
+    </svg>
   </div>
   <div class="day-body">
-    <div class="activity"><span class="act-icon">🦞</span> <b>悉尼鱼市场</b>（Sydney Fish Market）海鲜早午餐 <span class="act-paid">$20</span><a class="map-link" href="https://maps.app.goo.gl/redirect?q=Sydney+Fish+Market" target="_blank">📍 地图</a></div>
-    <div class="activity"><span class="act-icon">🛍️</span> <b>The Rocks Markets</b>（周六限定）买手工纪念品</div>
-    <div class="activity"><span class="act-icon">🏛️</span> <b>QVB 维多利亚女王大厦</b>：百年商场建筑本身是景点 <span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">☕</span> Surry Hills 咖啡馆下午茶 <span class="act-paid">$8</span></div>
-    <div class="activity"><span class="act-icon">🌅</span> <b>Barangaroo 海滨公园</b> 最后一次看悉尼海港落日 <span class="act-free">免费</span></div>
-    <div class="activity"><span class="act-icon">🍽️</span> 告别晚餐：找一家最喜欢的区回味 <span class="act-paid">$22</span></div>
-    <div class="activity"><span class="act-icon">🎒</span> 晚上收拾行李，检查护照+航班信息</div>
-    <div class="day-note">💡 最后一天不要排太满。鱼市场建议早去（9点前）避开旅行团。纪念品优先买 made in Australia 的。</div>
+    <div class="activity"><span class="act-emoji">🦞</span> <b>悉尼鱼市场</b> 海鲜早午餐 <span class="tag tag-paid">$20</span></div>
+    <div class="activity"><span class="act-emoji">🎪</span> <b>The Rocks Markets</b> 周六限定手工市集</div>
+    <div class="activity"><span class="act-emoji">🏛️</span> <b>QVB 维多利亚女王大厦</b> 百年建筑</div>
+    <div class="activity"><span class="act-emoji">☕</span> Surry Hills 独立咖啡馆下午茶 <span class="tag tag-paid">$8</span></div>
+    <div class="activity"><span class="act-emoji">🌅</span> <b>Barangaroo 海滨公园</b> 最后一次看海港落日</div>
+    <div class="activity"><span class="act-emoji">🍽️</span> 告别晚餐 <span class="tag tag-paid">$22</span></div>
+    <div class="activity"><span class="act-emoji">🎒</span> 收拾行李，检查护照+航班</div>
+    <div class="day-note">💡 最后一天不要排太满。鱼市场早去（9点前）避开旅行团。纪念品优先买 made in Australia。</div>
+    <div class="photo-spot">📷 Barangaroo 海边落日，悉尼最后一瞥</div>
   </div>
 </div>
 
-<!-- ===== MAP OVERVIEW ===== -->
-<div class="map-section">
-  <h3>🗺️ 路线总览（以 Randwick 为据点放射状出行）</h3>
-  <div class="route-step"><div class="route-num">🏠</div> <b>42/High Street, Randwick</b> — 你的大本营</div>
-  <div class="route-arrow">│ 步行 15分钟</div>
-  <div class="route-step"><div class="route-num">1</div> Coogee Beach → Bondi 海岸徒步起点</div>
-  <div class="route-arrow">│ 公交 30分钟</div>
-  <div class="route-step"><div class="route-num">2</div> 悉尼 CBD（歌剧院/大桥/植物园/The Rocks）</div>
-  <div class="route-arrow">│ 火车 1小时</div>
-  <div class="route-step"><div class="route-num">3</div> Featherdale 野生动物园 — 🐻 抱袋熊！</div>
-  <div class="route-arrow">│ 火车 2小时</div>
-  <div class="route-step"><div class="route-num">4</div> 蓝山 Katoomba — 三姐妹峰 + Scenic World</div>
-  <div class="route-arrow">│ 轮渡 10-30分钟</div>
-  <div class="route-step"><div class="route-num">5</div> Taronga 动物园 + Manly 海滩 + Watsons Bay</div>
-  <p style="margin-top:16px;font-size:.85em;color:#888;">
-    全部以 Randwick 为据点放射出行，不需要搬行李换住宿，省心省钱。<br>
-    <a href="https://www.google.com/maps/d/u/0/viewer?mid=1F9sIEUvQe8ZQqZqZqZqZqZqZqZqZqZq" target="_blank" style="color:var(--ocean);">📍 在 Google Maps 中打开完整路线</a>（复制所有地点到 My Maps）
-  </p>
 </div>
 
-<!-- ===== BUDGET ===== -->
-<div class="map-section">
-  <h3>💰 预算明细（经济版）</h3>
-  <table class="budget-table">
-    <tr><th>类别</th><th>项目</th><th>费用 (AUD)</th></tr>
-    <tr><td>🏠</td><td>住宿 9晚（42/High St Randwick）</td><td>已解决 ✅</td></tr>
-    <tr><td>🚌</td><td>公共交通 Opal 卡（9天，每日$8.40封顶）</td><td>$68</td></tr>
-    <tr><td>🐻</td><td>Featherdale 门票 + 袋熊接触</td><td>$73</td></tr>
-    <tr><td>🦒</td><td>Taronga Zoo 门票</td><td>$38</td></tr>
-    <tr><td>🏔️</td><td>Scenic World 蓝山</td><td>$55</td></tr>
-    <tr><td>🍽️</td><td>餐饮（9天，$25/天，早晚餐自己做一部分）</td><td>$225</td></tr>
-    <tr><td>📱</td><td>预付手机卡（Telstra/Optus 10天）</td><td>$15</td></tr>
-    <tr><td>🎁</td><td>纪念品 + 杂项</td><td>$50</td></tr>
-    <tr><td>🧥</td><td>备用/应急</td><td>$50</td></tr>
-    <tr><td colspan="2"><b>总计</b></td><td><b>≈ $574 AUD</b></td></tr>
-  </table>
-  <p style="margin-top:12px;font-size:.82em;color:#888;">
-    * 如果餐饮全部外食+偶尔小奢侈，预算约 <b>$800-850 AUD</b>（≈ 3,800-4,000 RMB）<br>
-    * 住宿已解决（42/High St），省了最大一笔开支（悉尼酒店约 $80-150/晚）<br>
-    * Opal 卡在便利店买，周日全天 $8.40 封顶，平日也有封顶
-  </p>
+<!-- Budget -->
+<div class="container" style="margin-top:24px;">
+  <div class="day-card" style="padding:18px 20px;">
+    <div style="font-weight:700;font-size:1em;margin-bottom:10px;">💰 预算明细</div>
+    <table style="width:100%;font-size:.82em;border-collapse:collapse;">
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">🏠 住宿 9晚（42/High St Randwick）</td><td style="text-align:right;">✅ 已解决</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">🚌 公交 Opal 卡 9天</td><td style="text-align:right;">$68</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">🐻 Featherdale 门票+袋熊接触</td><td style="text-align:right;">$73</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">🦒 Taronga Zoo</td><td style="text-align:right;">$38</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">🏔️ Scenic World 蓝山</td><td style="text-align:right;">$55</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">🍽️ 餐饮（部分自炊）</td><td style="text-align:right;">$225</td></tr>
+      <tr style="border-bottom:1px solid #eee;"><td style="padding:6px 0;">📱 手机卡+杂项</td><td style="text-align:right;">$65</td></tr>
+      <tr><td style="padding:6px 0;font-weight:700;">总计</td><td style="text-align:right;font-weight:700;color:var(--coral);font-size:1.1em;">≈ $574 AUD</td></tr>
+    </table>
+  </div>
 </div>
 
-<!-- ===== TIPS ===== -->
-<div class="map-section">
-  <h3>⚡ 出发前必做清单</h3>
-  <table class="budget-table">
-    <tr><td>🔴</td><td><b>Featherdale 袋熊接触预约</b></td><td>featherdale.com.au → Animal Encounters</td></tr>
-    <tr><td>🔴</td><td>Taronga Zoo 门票提前网购</td><td>taronga.org.au（网购比现场便宜）</td></tr>
-    <tr><td>🟡</td><td>Scenic World 蓝山门票</td><td>scenicworld.com.au（网购有折扣）</td></tr>
-    <tr><td>🟢</td><td>办澳洲签证（ETA）</td><td>官网或旅行社，约 $20 AUD</td></tr>
-    <tr><td>🟢</td><td>带外套+围巾（蓝山0-5°C）</td><td>悉尼市区 8-17°C，洋葱穿衣法</td></tr>
-    <tr><td>🟢</td><td>下载 Opal Travel App</td><td>查公交时刻+充值 Opal 卡</td></tr>
-    <tr><td>🟢</td><td>Google Maps 离线地图</td><td>提前下载悉尼+蓝山区域</td></tr>
-  </table>
+<!-- Confetti container -->
+<div class="confetti-container" id="confetti"></div>
+
+<!-- Share modal -->
+<div class="modal-overlay" id="share-modal">
+  <div class="modal-card">
+    <span class="big-mascot">🐻</span>
+    <h3>辜翊笑的悉尼旅程</h3>
+    <p style="font-size:.85em;color:#888;margin-bottom:8px;" id="share-msg">已完成 0/9 天</p>
+    <div style="background:#fef5f0;border-radius:16px;padding:14px;margin:10px 0;text-align:left;font-size:.8em;" id="share-progress-detail"></div>
+    <p style="font-size:.72em;color:#bbb;margin:8px 0;">📱 截图保存 → 发小红书 / 朋友圈</p>
+    <button onclick="closeShareModal()" class="close-btn">关闭</button>
+  </div>
 </div>
 
-</div>
+<!-- Toast -->
+<div class="toast" id="toast"></div>
 
 <footer>
   🐻 辜翊笑的悉尼旅程 · 2025.08.08-08.17<br>
-  打卡进度保存在浏览器中，下次打开不会丢失<br>
-  分享给朋友：把这个 .html 文件发给他们就行<br><br>
-  <span style="font-size:.75em;">Made with ❤️ for a wombat hug</span>
+  住宿：42/High Street, Randwick NSW 2031<br>
+  打卡数据保存在浏览器中，下次打开不会丢失
 </footer>
 
 <script>
-// Load saved state
+// ========== State management ==========
 function loadState() {
   try {
-    const saved = JSON.parse(localStorage.getItem('sydney_trip_done') || '{}');
+    const saved = JSON.parse(localStorage.getItem('sydney_trip_v2') || '{}');
     document.querySelectorAll('.day-card').forEach(card => {
       const day = card.dataset.day;
       if (saved[day]) card.classList.add('done');
@@ -611,43 +610,157 @@ function loadState() {
 function saveState() {
   const state = {};
   document.querySelectorAll('.day-card').forEach(card => {
-    const day = card.dataset.day;
-    state[day] = card.classList.contains('done');
+    state[card.dataset.day] = card.classList.contains('done');
   });
-  localStorage.setItem('sydney_trip_done', JSON.stringify(state));
+  localStorage.setItem('sydney_trip_v2', JSON.stringify(state));
 }
 
-function toggleDone(card) {
-  card.classList.toggle('done');
-  saveState();
-  updateProgress();
-}
-
+// ========== Toggle day ==========
 function toggleDay(header) {
   header.closest('.day-card').classList.toggle('open');
 }
 
-function updateProgress() {
+// ========== Toggle done ==========
+function toggleDone(card) {
+  const wasDone = card.classList.contains('done');
+  card.classList.toggle('done');
+  saveState();
+  updateProgress();
+
+  if (!wasDone && card.classList.contains('done')) {
+    spawnConfetti(card);
+    const dayNum = card.dataset.day;
+    const dayTitle = card.querySelector('.day-title').textContent;
+    showToast('🎉 Day ' + dayNum + ' 打卡成功！');
+  }
+
+  // Check all done
   const total = document.querySelectorAll('.day-card').length;
   const done = document.querySelectorAll('.day-card.done').length;
-  const pct = total ? Math.round(done/total*100) : 0;
-  document.getElementById('progress-inner').style.width = pct + '%';
-  document.getElementById('progress-label').textContent = done + ' / ' + total;
-}
-
-function resetAll() {
-  if (confirm('确定要重置所有打卡记录吗？这将清除所有勾选。')) {
-    document.querySelectorAll('.day-card').forEach(c => c.classList.remove('done'));
-    saveState();
-    updateProgress();
+  if (done === total) {
+    setTimeout(() => {
+      spawnConfetti(document.body, 80);
+      showToast('🐻 全部完成！你是最棒的旅行者！');
+    }, 400);
   }
 }
 
-// Init
-loadState();
-// Open first day by default
-document.querySelector('.day-card[data-day="1"]')?.classList.add('open');
-</script>
+// ========== Progress ==========
+function updateProgress() {
+  const total = 9;
+  const done = document.querySelectorAll('.day-card.done').length;
+  const pct = Math.round(done / total * 100);
 
+  // Ring
+  const circumference = 175.93;
+  const offset = circumference - (circumference * pct / 100);
+  document.getElementById('ring').style.strokeDashoffset = offset;
+  document.getElementById('ring-text').textContent = done + '/9';
+
+  // Messages
+  const msgs = [
+    ['等待出发 ✈️', '9 个打卡点等你解锁'],
+    ['开始咯！', '迈出第一步最棒了'],
+    ['好的开始 🎯', '旅程慢慢展开'],
+    ['渐入佳境 ✨', '三分之一已达成'],
+    ['过半啦 🎉', '你已经走了这么远'],
+    ['过半啦 🎉', '一路都是风景'],
+    ['冲刺阶段 💪', '就快完成了'],
+    ['马上圆满了 🌟', '坚持到最后'],
+    ['还差一天！', '明天就是大结局'],
+    ['全部完成！🏆', '你是悉尼通！'],
+  ];
+  const idx = Math.min(done, 9);
+  document.getElementById('progress-msg').textContent = msgs[idx][0];
+  document.getElementById('progress-sub').textContent = msgs[idx][1];
+}
+
+// ========== Confetti ==========
+function spawnConfetti(source, count = 30) {
+  const container = document.getElementById('confetti');
+  const rect = source.getBoundingClientRect();
+  const cx = rect.left + rect.width / 2;
+  const cy = rect.top + rect.height / 2;
+  const colors = ['#f8a5b6','#f07b6b','#a8d8b9','#e8c56d','#7db8c9','#ffb347','#ff6b6b','#c084fc'];
+
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    piece.style.left = (cx + (Math.random() - 0.5) * 300) + 'px';
+    piece.style.top = cy + 'px';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+    piece.style.animationDelay = Math.random() * 0.4 + 's';
+    piece.style.width = (6 + Math.random() * 10) + 'px';
+    piece.style.height = (6 + Math.random() * 10) + 'px';
+    container.appendChild(piece);
+    setTimeout(() => piece.remove(), 3000);
+  }
+}
+
+// ========== Toast ==========
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ========== Share modal ==========
+function openShareModal() {
+  const total = 9;
+  const done = document.querySelectorAll('.day-card.done').length;
+  const pct = Math.round(done / total * 100);
+  document.getElementById('share-msg').textContent = '已完成 ' + done + ' / ' + total + ' 天（' + pct + '%）';
+
+  let html = '';
+  document.querySelectorAll('.day-card').forEach(card => {
+    const day = card.dataset.day;
+    const title = card.querySelector('.day-title').textContent;
+    const isDone = card.classList.contains('done');
+    html += '<div style="padding:4px 0;display:flex;align-items:center;gap:6px;">' +
+      '<span style="font-size:1.1em;">' + (isDone ? '✅' : '⬜') + '</span>' +
+      '<span style="' + (isDone ? '' : 'color:#ccc;') + '">Day ' + day + ': ' + title + '</span>' +
+      '</div>';
+  });
+  document.getElementById('share-progress-detail').innerHTML = html;
+  document.getElementById('share-modal').classList.add('show');
+}
+
+function closeShareModal() {
+  document.getElementById('share-modal').classList.remove('show');
+}
+
+document.getElementById('share-modal').addEventListener('click', function(e) {
+  if (e.target === this) closeShareModal();
+});
+
+// ========== Countdown ==========
+function updateCountdown() {
+  const target = new Date('2025-08-08T06:15:00+10:00'); // Sydney AEST
+  const now = new Date();
+  const diff = target - now;
+
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '✈️';
+    document.getElementById('cd-hours').textContent = '出';
+    document.getElementById('cd-mins').textContent = '发';
+    return;
+  }
+
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+
+  document.getElementById('cd-days').textContent = days;
+  document.getElementById('cd-hours').textContent = hours;
+  document.getElementById('cd-mins').textContent = mins;
+}
+
+// ========== Init ==========
+loadState();
+updateCountdown();
+setInterval(updateCountdown, 60000);
+</script>
 </body>
 </html>
