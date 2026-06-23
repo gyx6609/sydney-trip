@@ -4,604 +4,790 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#1a6b8a">
 <title>辜翊笑的悉尼旅程</title>
-<link rel="manifest" href="data:application/json,{}">
 <style>
 :root {
-  --blue: #1a6b8a;
-  --sky: #4a9db5;
-  --sand: #f5e6d3;
-  --coral: #e8734a;
-  --green: #5a9e6f;
-  --text: #2c2c2c;
-  --muted: #888;
-  --bg: #f5f2ef;
-  --card: #fff;
-  --radius: 14px;
+  --blue:#1a6b8a; --sky:#4a9db5; --sand:#f5e6d3; --coral:#e8734a;
+  --green:#5a9e6f; --red:#e05555; --text:#2c2c2c; --muted:#888;
+  --bg:#f5f2ef; --card:#fff; --radius:14px;
 }
 * { margin:0; padding:0; box-sizing:border-box; }
-
 body {
-  font-family: -apple-system, "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
+  font-family: -apple-system,"SF Pro Text","PingFang SC","Microsoft YaHei",sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
   -webkit-tap-highlight-color: transparent;
 }
 
-/* ===== HEADER ===== */
+/* Header */
 .header {
   background: linear-gradient(135deg, #1a3a4a, #1a6b8a);
-  color: white;
-  padding: 16px 20px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  color: white; padding: 14px 18px;
+  position: sticky; top:0; z-index:10;
+  display: flex; align-items: center; justify-content: space-between;
 }
-.header .title { font-weight: 700; font-size: 1.05em; }
-.header .nav { display: flex; gap: 16px; }
-.header .nav-btn {
-  background: rgba(255,255,255,.15);
-  border: none;
-  color: white;
-  padding: 6px 14px;
-  border-radius: 16px;
-  font-size: .8em;
-  cursor: pointer;
-  transition: background .2s;
+.header .title { font-weight:700; font-size:1em; }
+.header .nav { display:flex; gap:6px; }
+.nav-btn {
+  background: rgba(255,255,255,.12); border: none; color: rgba(255,255,255,.8);
+  padding: 6px 12px; border-radius: 16px; font-size: .78em; cursor: pointer;
+  display: flex; align-items: center; gap: 4px;
 }
-.header .nav-btn.active { background: rgba(255,255,255,.3); font-weight: 600; }
-
-/* ===== MAIN CONTENT ===== */
-.main { max-width: 520px; margin: 0 auto; padding: 0 12px 80px; }
+.nav-btn.active { background: rgba(255,255,255,.28); color: #fff; font-weight:600; }
 
 /* Tabs */
-.tab { display: none; }
-.tab.active { display: block; }
+.main { max-width:520px; margin:0 auto; padding:0 12px 80px; }
+.tab { display:none; }
+.tab.active { display:block; }
 
-/* ===== WEATHER RIBBON ===== */
-.weather-ribbon {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  margin: 12px 0;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  overflow-x: auto;
-  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+/* ===== WEATHER BAR ===== */
+.weather-bar {
+  background: var(--card); border-radius: var(--radius);
+  padding: 10px 14px; margin: 10px 0;
+  display: flex; align-items: center; gap: 12px;
+  font-size:.82em; box-shadow: 0 1px 4px rgba(0,0,0,.04);
 }
-.weather-day {
-  text-align: center;
-  min-width: 48px;
-  flex-shrink: 0;
+.weather-bar .w-icon { font-size:2em; }
+.weather-bar .w-info { flex:1; }
+.weather-bar .w-temp { font-weight:700; font-size:1.1em; }
+.weather-bar .w-desc { color: var(--muted); font-size:.85em; }
+.weather-bar .w-refresh {
+  background: #e8f4f8; border: none; padding: 6px 12px;
+  border-radius: 12px; font-size:.75em; cursor: pointer; color: var(--blue);
 }
-.weather-day .wd-label { font-size: .7em; color: var(--muted); }
-.weather-day .wd-icon { font-size: 1.4em; margin: 2px 0; }
-.weather-day .wd-temp { font-size: .75em; font-weight: 600; }
-.weather-day .wd-rain { font-size: .6em; color: var(--sky); }
-.weather-day.today { background: #e8f4f8; border-radius: 10px; padding: 6px 8px; }
+.weather-bar .w-refresh:active { background: #d0e8f0; }
+.weather-forecast {
+  display: flex; gap: 6px; overflow-x: auto;
+  padding: 8px 0; margin: 4px 0;
+}
+.weather-forecast .wf-day {
+  text-align: center; min-width: 52px; flex-shrink: 0;
+  padding: 6px 4px; border-radius: 10px;
+}
+.weather-forecast .wf-day.today { background: #e8f4f8; }
+.wf-label { font-size:.65em; color:var(--muted); }
+.wf-icon { font-size:1.3em; margin:2px 0; }
+.wf-temp { font-size:.7em; font-weight:600; }
+.wf-rain { font-size:.6em; color:var(--sky); }
 
-/* ===== DAY CARD ===== */
+/* ===== TRAVEL TIP ===== */
+.tip-bar {
+  background: linear-gradient(135deg,#fff8e1,#fff3cd);
+  border-radius: var(--radius); padding: 10px 14px; margin: 8px 0;
+  font-size:.78em; color:#6b5e3e; display: flex; align-items: center; gap: 6px;
+}
+
+/* ===== PROGRESS ===== */
+.progress-row {
+  display:flex; align-items:center; gap:10px; padding:6px 0; font-size:.82em;
+}
+.progress-row .bar {
+  flex:1; height:6px; background:#e0e0e0; border-radius:3px; overflow:hidden;
+}
+.progress-row .bar div {
+  height:100%; background:var(--green); border-radius:3px;
+  transition: width .4s; width:0%;
+}
+.progress-row .label { font-weight:600; color:var(--blue); white-space:nowrap; }
+
+/* ===== DAY CARDS ===== */
 .day-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  margin: 10px 0;
-  overflow: hidden;
+  background: var(--card); border-radius: var(--radius);
+  margin: 8px 0; overflow: hidden;
   box-shadow: 0 1px 4px rgba(0,0,0,.04);
   border-left: 4px solid transparent;
 }
-.day-card.today-card { border-left-color: var(--coral); box-shadow: 0 2px 12px rgba(232,115,74,.12); }
-.day-card.done { opacity: .6; }
-.day-card.done .day-card-header { background: #f8faf8; }
-
+.day-card.today { border-left-color: var(--coral); }
+.day-card.done { opacity:.6; }
 .day-card-header {
-  display: flex;
-  align-items: center;
-  padding: 12px 14px;
-  cursor: pointer;
-  gap: 10px;
-  user-select: none;
+  display:flex; align-items:center; padding:10px 14px; cursor:pointer; gap:10px; user-select:none;
 }
-.day-card-header:active { background: #fafaf7; }
+.day-card-header:active { background:#fafaf7; }
 .day-num {
-  width: 34px; height: 34px;
-  border-radius: 50%;
-  background: var(--blue);
-  color: white;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700; font-size: .9em;
-  flex-shrink: 0;
+  width:32px; height:32px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-weight:700; font-size:.85em; flex-shrink:0;
+  background: var(--blue); color: white;
 }
 .done .day-num { background: var(--green); }
-.today-card .day-num { background: var(--coral); }
+.today .day-num { background: var(--coral); }
 .day-info { flex:1; min-width:0; }
-.day-date { font-size: .7em; color: var(--muted); }
-.day-title { font-weight: 600; font-size: .9em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.day-date { font-size:.68em; color:var(--muted); }
+.day-title { font-weight:600; font-size:.88em; }
 .day-check {
-  width: 30px; height: 30px;
-  border: 2.5px solid #ddd;
-  border-radius: 50%;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: all .2s;
-  display: flex; align-items: center; justify-content: center;
+  width:28px; height:28px; border:2.5px solid #ddd; border-radius:50%;
+  flex-shrink:0; cursor:pointer; transition:all .2s;
+  display:flex; align-items:center; justify-content:center;
 }
-.day-check:hover { border-color: var(--green); }
-.done .day-check { background: var(--green); border-color: var(--green); }
-.done .day-check::after { content:'✓'; color:white; font-weight:700; font-size:.8em; }
+.done .day-check { background:var(--green); border-color:var(--green); }
+.done .day-check::after { content:'✓'; color:white; font-weight:700; font-size:.75em; }
 
-.day-card-body { display: none; padding: 0 14px 14px 56px; }
-.day-card.open .day-card-body { display: block; }
-
-/* ===== INFO BLOCKS ===== */
-.info-block { margin: 8px 0; }
-.info-label { font-size: .7em; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.info-value { font-size: .85em; }
-
-.route-step {
-  display: flex; gap: 8px; padding: 5px 0; font-size: .82em; align-items: flex-start;
-}
+.day-body { display:none; padding:0 14px 12px 52px; }
+.day-card.open .day-body { display:block; }
+.info-label { font-size:.68em; color:var(--muted); letter-spacing:1px; margin:8px 0 2px; text-transform:uppercase; }
+.route-step { display:flex; gap:7px; padding:4px 0; font-size:.78em; align-items:flex-start; }
 .route-icon {
-  width: 24px; height: 24px;
-  border-radius: 50%;
-  background: #e8f4f8;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .75em;
-  flex-shrink: 0;
-  margin-top: 1px;
+  width:22px; height:22px; border-radius:50%; background:#e8f4f8;
+  display:flex; align-items:center; justify-content:center;
+  font-size:.7em; flex-shrink:0; margin-top:2px;
 }
-.route-connector {
-  width: 2px;
-  background: #e0e0e0;
-  margin-left: 11px;
-  height: 14px;
-}
+.wear-tags { display:flex; flex-wrap:wrap; gap:4px; margin-top:2px; }
+.wear-tag { background:#f0ebe0; padding:3px 8px; border-radius:10px; font-size:.72em; color:#6b5e3e; }
 .map-link {
-  display: inline-block;
-  margin-top: 6px;
-  background: #e8f4f8;
-  color: var(--blue);
-  padding: 6px 14px;
-  border-radius: 16px;
-  font-size: .78em;
-  text-decoration: none;
-  font-weight: 600;
+  display:inline-block; margin-top:4px; background:#e8f4f8; color:var(--blue);
+  padding:5px 12px; border-radius:14px; font-size:.75em; text-decoration:none; font-weight:600;
 }
-.map-link:active { background: #d0e8f0; }
-
-/* What to wear */
-.wear-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.wear-tag {
-  background: #f0ebe0;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: .75em;
-  color: #6b5e3e;
+.tip-box {
+  background:#fef9f4; border-radius:10px; padding:8px 12px; margin-top:6px;
+  border-left:3px solid #e8c56d; font-size:.75em; color:#6b5e3e;
 }
 
-/* ===== BUDGET TRACKER ===== */
-.budget-input-row {
-  display: flex; gap: 6px; margin-top: 6px;
+/* ===== EXPENSE TAB ===== */
+.expense-summary {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 8px; margin: 10px 0;
 }
-.budget-input-row input {
-  flex:1; padding: 8px 10px; border: 1px solid #e0e0e0; border-radius: 10px;
-  font-size: .82em; background: #fafaf7;
+.expense-card {
+  background: var(--card); border-radius: var(--radius);
+  padding: 14px; text-align: center; box-shadow: 0 1px 4px rgba(0,0,0,.04);
 }
-.budget-input-row input:focus { outline: none; border-color: var(--sky); }
-.budget-input-row button {
-  background: var(--blue); color: white; border: none;
-  padding: 8px 14px; border-radius: 10px; font-size: .8em; font-weight: 600; cursor: pointer;
+.expense-card .ec-num { font-size:1.6em; font-weight:700; }
+.expense-card .ec-label { font-size:.7em; color:var(--muted); margin-top:2px; }
+
+.category-bar {
+  display:flex; gap:2px; height:8px; border-radius:4px;
+  overflow:hidden; margin:8px 0;
 }
-.budget-input-row button:active { opacity: .8; }
+.cat-chunk { transition: width .3s; }
+
+.expense-list { margin: 8px 0; }
 .expense-item {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 4px 0; font-size: .78em; border-bottom: 1px solid #f5f5f5;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:8px 0; border-bottom:1px solid #f5f5f5; font-size:.82em;
 }
-.expense-del { color: #ccc; cursor: pointer; font-size: .9em; padding: 2px 6px; }
+.expense-item .ei-left { display:flex; align-items:center; gap:8px; }
+.expense-item .ei-cat { font-size:1.1em; width:24px; text-align:center; }
+.expense-item .ei-name { }
+.expense-item .ei-day { font-size:.7em; color:var(--muted); }
+.expense-item .ei-amt { font-weight:600; }
+.expense-item .ei-del { color:#ccc; cursor:pointer; padding:2px 6px; font-size:.9em; }
 
-/* ===== NOTES ===== */
-.note-area {
-  width: 100%; min-height: 60px;
-  padding: 10px; border: 1px solid #e0e0e0; border-radius: 10px;
-  font-size: .82em; resize: vertical; font-family: inherit;
-  background: #fafaf7; margin-top: 6px;
+.add-expense-form {
+  background: var(--card); border-radius: var(--radius);
+  padding: 14px; margin: 10px 0; box-shadow: 0 1px 4px rgba(0,0,0,.04);
 }
-.note-area:focus { outline: none; border-color: var(--sky); }
-
-/* ===== CHECKLIST ===== */
-.checklist-item {
-  display: flex; align-items: center; gap: 8px; padding: 4px 0; font-size: .82em;
+.add-expense-form h4 { font-size:.85em; margin-bottom:10px; }
+.form-row { display:flex; gap:6px; margin-bottom:8px; }
+.form-row input, .form-row select {
+  padding: 8px 10px; border:1px solid #e0e0e0; border-radius:10px;
+  font-size:.8em; background:#fafaf7; font-family:inherit;
 }
-.checklist-item input[type=checkbox] { accent-color: var(--blue); width:16px; height:16px; }
-
-/* ===== TODAY SECTION ===== */
-.today-badge {
-  display: inline-block;
-  background: var(--coral);
-  color: white;
-  padding: 2px 10px;
-  border-radius: 10px;
-  font-size: .7em;
-  font-weight: 600;
-  margin-left: 6px;
+.form-row input:focus, .form-row select:focus { outline:none; border-color:var(--sky); }
+.form-row input { flex:1; }
+.form-row select { width:80px; }
+.btn-primary {
+  width:100%; padding:10px; border:none; border-radius:12px;
+  background: var(--blue); color:white; font-size:.85em;
+  font-weight:600; cursor:pointer;
 }
+.btn-primary:active { opacity:.8; }
+.btn-sm {
+  padding:4px 10px; border:none; border-radius:10px;
+  font-size:.72em; cursor:pointer; font-weight:600;
+}
+.btn-outline { background:white; border:1px solid #ddd; color:var(--muted); }
+.btn-danger { background:#fee; color:var(--red); }
 
 /* ===== TOOLS TAB ===== */
 .tool-card {
-  background: var(--card);
-  border-radius: var(--radius);
-  padding: 16px;
-  margin: 10px 0;
-  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  background: var(--card); border-radius: var(--radius);
+  padding: 14px; margin: 10px 0; box-shadow: 0 1px 4px rgba(0,0,0,.04);
 }
-.tool-card h3 { font-size: .95em; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-
+.tool-card h4 { font-size:.88em; margin-bottom:8px; }
+.checklist-item {
+  display:flex; align-items:center; gap:8px; padding:5px 0; font-size:.8em;
+}
+.checklist-item input[type=checkbox] { accent-color:var(--blue); width:16px; height:16px; }
 .emergency-row {
-  display: flex; justify-content: space-between; padding: 6px 0;
-  font-size: .82em; border-bottom: 1px solid #f5f5f5;
+  display:flex; justify-content:space-between; padding:5px 0;
+  font-size:.78em; border-bottom:1px solid #f5f5f5;
 }
-.emergency-row .er-label { color: var(--muted); }
-.emergency-row .er-val { font-weight: 600; }
+.emergency-row .er-label { color:var(--muted); }
+.emergency-row .er-val { font-weight:600; }
 
-/* ===== Footer ===== */
-.footer {
-  text-align: center; padding: 20px; color: #ccc; font-size: .72em;
-}
-
-/* ===== Toast ===== */
+/* Toast */
 .toast {
-  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-  background: #333; color: white; padding: 10px 24px;
-  border-radius: 20px; font-size: .82em; z-index: 999;
-  opacity: 0; pointer-events: none; transition: opacity .3s;
+  position:fixed; bottom:30px; left:50%; transform:translateX(-50%);
+  background:#333; color:white; padding:10px 24px;
+  border-radius:20px; font-size:.8em; z-index:999;
+  opacity:0; pointer-events:none; transition:opacity .3s;
 }
-.toast.show { opacity: 1; }
+.toast.show { opacity:1; }
 
-/* ===== Travel tip banner ===== */
-.tip-banner {
-  background: linear-gradient(135deg, #fff8e1, #fff3cd);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  margin: 12px 0;
-  font-size: .8em;
-  color: #6b5e3e;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* Sync status */
+.sync-status {
+  font-size:.7em; color:var(--muted);
+  display:flex; align-items:center; gap:4px;
 }
+.sync-dot { width:6px; height:6px; border-radius:50%; }
+.sync-dot.synced { background: var(--green); }
+.sync-dot.unsynced { background: #ffc107; }
+.sync-dot.error { background: var(--red); }
+
+.footer { text-align:center; padding:20px; color:#ccc; font-size:.7em; }
 </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
 <div class="header">
   <div class="title">🐻 辜翊笑的悉尼旅程</div>
   <div class="nav">
-    <button class="nav-btn active" onclick="switchTab('plan')">行程</button>
-    <button class="nav-btn" onclick="switchTab('tools')">工具箱</button>
+    <button class="nav-btn active" onclick="switchTab('plan')">📋 行程</button>
+    <button class="nav-btn" onclick="switchTab('money')">💰 记账</button>
+    <button class="nav-btn" onclick="switchTab('tools')">🧰 工具</button>
   </div>
 </div>
 
-<!-- ===== PLAN TAB ===== -->
+<!-- ==================== PLAN TAB ==================== -->
 <div class="main tab active" id="tab-plan">
 
   <!-- Weather -->
-  <div class="weather-ribbon" id="weather-ribbon">
-    <div style="font-size:.8em;color:var(--muted);padding:10px;">加载天气中...</div>
+  <div class="weather-bar" id="weather-bar">
+    <div class="w-icon" id="w-icon">🌤️</div>
+    <div class="w-info">
+      <div class="w-temp" id="w-temp">加载中...</div>
+      <div class="w-desc" id="w-desc">悉尼冬末</div>
+    </div>
+    <button class="w-refresh" onclick="fetchWeather()">🔄 刷新</button>
   </div>
+  <div class="weather-forecast" id="weather-forecast"></div>
 
-  <!-- Travel tip -->
-  <div class="tip-banner" id="tip-banner">
-    💡 <span id="tip-text">公交 Opal 卡周日全天 $8.40 封顶，随便坐！</span>
-  </div>
+  <!-- Tip -->
+  <div class="tip-bar" id="tip-bar">💡 <span id="tip-text">悉尼冬末 8-17°C，薄羽绒+卫衣最实用</span></div>
 
   <!-- Progress -->
-  <div style="display:flex;align-items:center;gap:10px;padding:4px 0;font-size:.85em;">
-    <span style="font-weight:600;">完成进度</span>
-    <div style="flex:1;height:6px;background:#e0e0e0;border-radius:3px;overflow:hidden;">
-      <div id="progress-bar" style="height:100%;background:var(--green);border-radius:3px;width:0%;transition:width .4s;"></div>
-    </div>
-    <span id="progress-label" style="font-weight:600;color:var(--blue);">0/9</span>
+  <div class="progress-row">
+    <span style="font-weight:600;font-size:.82em;">📋 完成进度</span>
+    <div class="bar"><div id="progress-fill"></div></div>
+    <span class="label" id="progress-label">0/9</span>
   </div>
 
   <!-- Day cards -->
   <div id="day-cards"></div>
+</div>
 
-  <!-- Budget summary -->
-  <div class="tool-card" style="margin-top:16px;">
-    <h3>💰 旅行花费总览</h3>
-    <div style="display:flex;justify-content:space-between;font-size:.85em;margin-bottom:4px;">
-      <span>已记账</span><span style="font-weight:700;" id="total-spent">$0 AUD</span>
+<!-- ==================== MONEY TAB ==================== -->
+<div class="main tab" id="tab-money">
+  <!-- Summary -->
+  <div class="expense-summary">
+    <div class="expense-card">
+      <div class="ec-num" style="color:var(--coral);" id="total-spent">$0</div>
+      <div class="ec-label">已花费</div>
     </div>
-    <div style="display:flex;justify-content:space-between;font-size:.85em;margin-bottom:4px;">
-      <span>预算</span><span style="color:var(--muted);">$574 AUD</span>
-    </div>
-    <div style="display:flex;justify-content:space-between;font-size:.78em;">
-      <span>剩余</span><span id="budget-remaining" style="color:var(--green);">$574 AUD</span>
+    <div class="expense-card">
+      <div class="ec-num" style="color:var(--green);" id="total-remaining">$574</div>
+      <div class="ec-label">剩余预算</div>
     </div>
   </div>
 
+  <!-- Category breakdown -->
+  <div class="category-bar" id="category-bar"></div>
+  <div style="font-size:.72em;color:var(--muted);display:flex;flex-wrap:wrap;gap:8px;" id="category-legend"></div>
+
+  <!-- Sync status -->
+  <div style="display:flex;justify-content:space-between;align-items:center;margin:10px 0;">
+    <div class="sync-status">
+      <div class="sync-dot unsynced" id="sync-dot"></div>
+      <span id="sync-text">本地存储</span>
+    </div>
+    <div style="display:flex;gap:6px;">
+      <button class="btn-sm btn-outline" onclick="exportCSV()">📥 导出 CSV</button>
+      <button class="btn-sm btn-outline" id="sync-btn" onclick="syncToCloud()" disabled>☁️ 云同步</button>
+    </div>
+  </div>
+
+  <!-- Expense list -->
+  <div class="expense-list" id="expense-list"></div>
+
+  <!-- Add expense form -->
+  <div class="add-expense-form">
+    <h4>➕ 记一笔</h4>
+    <div class="form-row">
+      <select id="new-cat">
+        <option value="🍽️">🍽️ 餐饮</option>
+        <option value="🚌">🚌 交通</option>
+        <option value="🎫">🎫 门票</option>
+        <option value="🛍️">🛍️ 购物</option>
+        <option value="🏠">🏠 住宿</option>
+        <option value="📱">📱 通讯</option>
+        <option value="🎁">🎁 礼物</option>
+        <option value="💊">💊 其他</option>
+      </select>
+      <select id="new-day">
+        <option value="1">Day 1</option><option value="2">Day 2</option>
+        <option value="3">Day 3</option><option value="4">Day 4</option>
+        <option value="5">Day 5</option><option value="6">Day 6</option>
+        <option value="7">Day 7</option><option value="8">Day 8</option>
+        <option value="9">Day 9</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <input type="text" placeholder="项目名称（如：Featherdale 门票）" id="new-name">
+    </div>
+    <div class="form-row">
+      <input type="number" placeholder="金额 AUD" id="new-amt" style="max-width:140px;">
+      <span style="font-size:.82em;align-self:center;color:var(--muted);">AUD</span>
+    </div>
+    <button class="btn-primary" onclick="addExpense()">💾 记一笔</button>
+  </div>
 </div>
 
-<!-- ===== TOOLS TAB ===== -->
+<!-- ==================== TOOLS TAB ==================== -->
 <div class="main tab" id="tab-tools">
 
-  <!-- Before trip checklist -->
   <div class="tool-card">
-    <h3>✅ 出发前准备清单</h3>
-    <div class="checklist-item"><input type="checkbox" id="chk-visa" onchange="saveChecklist()"><label for="chk-visa">办澳洲签证 ETA（约 $20 AUD）</label></div>
-    <div class="checklist-item"><input type="checkbox" id="chk-wombat" onchange="saveChecklist()"><label for="chk-wombat">🐻 Featherdale 袋熊接触预约！</label></div>
-    <div class="checklist-item"><input type="checkbox" id="chk-taronga" onchange="saveChecklist()"><label for="chk-taronga">🦒 Taronga Zoo 门票网购</label></div>
-    <div class="checklist-item"><input type="checkbox" id="chk-scenic" onchange="saveChecklist()"><label for="chk-scenic">🏔️ Scenic World 蓝山门票</label></div>
-    <div class="checklist-item"><input type="checkbox" id="chk-sim" onchange="saveChecklist()"><label for="chk-sim">📱 买 Telstra/Optus 预付卡</label></div>
-    <div class="checklist-item"><input type="checkbox" id="chk-map" onchange="saveChecklist()"><label for="chk-map">🗺️ 下载悉尼+蓝山 Google 离线地图</label></div>
-    <div class="checklist-item"><input type="checkbox" id="chk-opal" onchange="saveChecklist()"><label for="chk-opal">🚌 下载 Opal Travel App</label></div>
-    <div class="checklist-item"><input type="checkbox" id="chk-insurance" onchange="saveChecklist()"><label for="chk-insurance">🏥 旅行保险</label></div>
-    <div class="checklist-item"><input type="checkbox" id="chk-plug" onchange="saveChecklist()"><label for="chk-plug">🔌 澳洲八字插头转换器</label></div>
+    <h4>✅ 出发前准备清单</h4>
+    <div class="checklist-item"><input type="checkbox" id="chk-visa" onchange="saveChecklist()"><label>办澳洲签证 ETA</label></div>
+    <div class="checklist-item"><input type="checkbox" id="chk-wombat" onchange="saveChecklist()"><label>🐻 Featherdale 袋熊接触预约</label></div>
+    <div class="checklist-item"><input type="checkbox" id="chk-taronga" onchange="saveChecklist()"><label>🦒 Taronga Zoo 门票网购</label></div>
+    <div class="checklist-item"><input type="checkbox" id="chk-scenic" onchange="saveChecklist()"><label>🏔️ Scenic World 蓝山门票</label></div>
+    <div class="checklist-item"><input type="checkbox" id="chk-sim" onchange="saveChecklist()"><label>📱 Telstra/Optus 预付卡</label></div>
+    <div class="checklist-item"><input type="checkbox" id="chk-map" onchange="saveChecklist()"><label>🗺️ Google 离线地图（悉尼+蓝山）</label></div>
+    <div class="checklist-item"><input type="checkbox" id="chk-opal" onchange="saveChecklist()"><label>🚌 下载 Opal Travel App</label></div>
+    <div class="checklist-item"><input type="checkbox" id="chk-insurance" onchange="saveChecklist()"><label>🏥 旅行保险</label></div>
+    <div class="checklist-item"><input type="checkbox" id="chk-plug" onchange="saveChecklist()"><label>🔌 澳洲八字插头转换器</label></div>
+    <div class="checklist-item"><input type="checkbox" id="chk-coat" onchange="saveChecklist()"><label>🧥 薄羽绒服+围巾（蓝山用）</label></div>
   </div>
 
-  <!-- Emergency info -->
   <div class="tool-card">
-    <h3>🆘 紧急联系</h3>
-    <div class="emergency-row"><span class="er-label">澳洲报警/急救</span><span class="er-val">000</span></div>
+    <h4>🆘 紧急联系</h4>
+    <div class="emergency-row"><span class="er-label">澳洲报警/急救/火警</span><span class="er-val">000</span></div>
     <div class="emergency-row"><span class="er-label">中国驻悉尼总领馆</span><span class="er-val">+61-2-8595-8002</span></div>
-    <div class="emergency-row"><span class="er-label">领事保护热线</span><span class="er-val">+86-10-12308</span></div>
+    <div class="emergency-row"><span class="er-label">外交部全球领事保护</span><span class="er-val">+86-10-12308</span></div>
     <div class="emergency-row"><span class="er-label">Randwick 警察局</span><span class="er-val">+61-2-9349-9299</span></div>
-    <div class="emergency-row"><span class="er-label">Prince of Wales 医院</span><span class="er-val">320-338 Barker St</span></div>
-    <div class="emergency-row"><span class="er-label">翻译服务 TIS</span><span class="er-val">131 450</span></div>
+    <div class="emergency-row"><span class="er-label">Prince of Wales 医院</span><span class="er-val">Barker St, Randwick</span></div>
+    <div class="emergency-row"><span class="er-label">免费翻译服务 TIS</span><span class="er-val">131 450</span></div>
+    <div class="emergency-row"><span class="er-label">悉尼24h药店</span><span class="er-val">Priceline Pharmacy CBD</span></div>
   </div>
 
-  <!-- Quick info -->
   <div class="tool-card">
-    <h3>💡 出行贴士</h3>
-    <div class="checklist-item"><span>🚌</span> Opal 卡便利店买，充值用 App</div>
+    <h4>💡 悉尼出行贴士</h4>
+    <div class="checklist-item"><span>🚌</span> Opal 卡便利店可买，App 可充值</div>
     <div class="checklist-item"><span>🚂</span> 周日 $8.40 全天封顶</div>
-    <div class="checklist-item"><span>💧</span> 自来水可直接饮用</div>
-    <div class="checklist-item"><span>💳</span> 大部分地方可刷卡，备少量现金</div>
-    <div class="checklist-item"><span>🦘</span> 傍晚开车注意袋鼠出没</div>
-    <div class="checklist-item"><span>🌞</span> 澳洲紫外线强，冬末也需防晒</div>
-    <div class="checklist-item"><span>☕</span> 没有小费文化，但咖啡馆 tips jar 随意</div>
+    <div class="checklist-item"><span>💧</span> 自来水可以直接喝</div>
+    <div class="checklist-item"><span>💳</span> 大部分地方可刷卡，备 $50 现金即可</div>
+    <div class="checklist-item"><span>🦘</span> 蓝山傍晚开车注意袋鼠出没</div>
+    <div class="checklist-item"><span>🌞</span> 澳洲紫外线超强，阴天也需防晒</div>
+    <div class="checklist-item"><span>🍽️</span> 不需要给小费，但咖啡店 tip jar 随意</div>
+    <div class="checklist-item"><span>🕐</span> 悉尼比中国快 2 小时（冬令时）</div>
   </div>
-
 </div>
 
-<!-- Toast -->
 <div class="toast" id="toast"></div>
-
-<div class="footer">🐻 辜翊笑的悉尼旅程 · 2025.08.08-08.17</div>
+<div class="footer">🐻 辜翊笑的悉尼旅程 · 2025.08.08-08.17 · 42/High Street, Randwick</div>
 
 <script>
 // ============================================================
-// DATA: All trip information
+// DATA
 // ============================================================
-const DAYS = [
-  {
-    id:1, date:'8月8日 周五', icon:'🛬', title:'抵达悉尼 · 安顿初探',
-    weather: '悉尼市区', wear:['薄外套','长裤','运动鞋'], wearNote:'冬末早晚凉，洋葱穿衣法',
-    route:[
-      {icon:'✈️', text:'6:15 抵达悉尼机场 → 海关+取行李'},
-      {icon:'🚌', text:'机场公交 350 路 → Randwick（25分钟，$2.5）'},
-      {icon:'🏠', text:'入住 42/High Street, Randwick'},
-      {icon:'☕', text:'Belmore Rd 早午餐（推荐 Clodeli Cafe）'},
-      {icon:'🌊', text:'步行15分钟到 Coogee Beach 散步'},
-      {icon:'🍽️', text:'晚餐：Coogee Pavilion 或 Randwick 泰餐'},
-    ],
-    mapUrl: 'https://maps.app.goo.gl/?q=42+High+Street+Randwick+NSW',
-    tips: '长途飞行后别排太满。Coogee 海滩从家门口走路15分钟就到，黄昏特别美。',
-  },
-  {
-    id:2, date:'8月9日 周六', icon:'🥾', title:'海岸徒步 Coogee → Bondi',
-    weather: '悉尼东部海岸', wear:['运动鞋','薄外套','帽子','防晒'], wearNote:'徒步2.5小时，海边风大',
-    route:[
-      {icon:'🥾', text:'从 Coogee Beach 出发（家门口！）'},
-      {icon:'📸', text:'→ Gordons Bay（礁石海滩）'},
-      {icon:'📸', text:'→ Clovelly Beach（岩石泳池）'},
-      {icon:'☕', text:'→ Bronte Beach（咖啡馆休息）'},
-      {icon:'📸', text:'→ Tamarama（小邦迪）'},
-      {icon:'🏁', text:'→ Bondi Beach 终点！6km，约2.5h'},
-      {icon:'🍔', text:'午餐：Bondi Tony\'s 汉堡 $12'},
-      {icon:'🏊', text:'Bondi Icebergs 网红泳池（游泳$10）'},
-      {icon:'🚌', text:'公交 333 路回 Randwick $2.5'},
-    ],
-    mapUrl: 'https://maps.app.goo.gl/?q=Coogee+to+Bondi+Coastal+Walk',
-    tips: '8月是鲸鱼迁徙高峰，沿路多抬头看海面！穿运动鞋，带水。',
-  },
-  {
-    id:3, date:'8月10日 周日', icon:'🏙️', title:'悉尼地标 · 歌剧院+大桥',
-    weather: '悉尼 CBD', wear:['休闲装','薄外套','好走的鞋'], wearNote:'周日 $8.40 交通封顶',
-    route:[
-      {icon:'🚌', text:'公交 373/374 → Circular Quay $2.5'},
-      {icon:'🏛️', text:'悉尼歌剧院外观 + 拍照'},
-      {icon:'🌿', text:'皇家植物园 → Mrs Macquarie\'s Chair（最佳机位）'},
-      {icon:'🌉', text:'海港大桥步行过桥（免费人行道！）'},
-      {icon:'🍜', text:'The Rocks 午餐 $14'},
-      {icon:'🎪', text:'The Rocks Markets 周末市集'},
-      {icon:'🌇', text:'Observatory Hill 看夕阳'},
-    ],
-    mapUrl: 'https://maps.app.goo.gl/?q=Sydney+Opera+House',
-    tips: '周日 Opal 卡全天封顶 $8.40。所有景点都在步行圈，不用坐车。',
-  },
-  {
-    id:4, date:'8月11日 周一', icon:'🐻', title:'⭐ 抱袋熊日！Featherdale',
-    weather: 'Doonside（西悉尼）', wear:['休闲装','外套','不介意动物口水的衣服'], wearNote:'动物园户外为主',
-    route:[
-      {icon:'🚂', text:'Central → T1 线 → Doonside 站（约1h）$5'},
-      {icon:'🚶', text:'Doonside 站步行10分钟到 Featherdale'},
-      {icon:'🐻', text:'⭐ 袋熊亲密接触！Wombat Encounter $35'},
-      {icon:'🦘', text:'免费手喂袋鼠 + 沙袋鼠'},
-      {icon:'🐨', text:'考拉合影 · 袋獾 · 企鹅巡游'},
-      {icon:'🍱', text:'园内午餐或自带三明治 $12'},
-      {icon:'🚂', text:'下午火车返回 $5'},
-    ],
-    mapUrl: 'https://maps.app.goo.gl/?q=Featherdale+Sydney+Wildlife+Park',
-    tips: '🔴 必须提前在 featherdale.com.au 预约 Wombat Encounter！早上去袋熊最活跃。',
-    isWombatDay: true,
-  },
-  {
-    id:5, date:'8月12日 周二', icon:'🏔️', title:'蓝山一日游 · 三姐妹峰',
-    weather: 'Katoomba 蓝山', wear:['厚外套','毛衣','围巾','手套'], wearNote:'蓝山比市区冷 5-8°C，可能接近 0°C',
-    route:[
-      {icon:'🚂', text:'Central → Katoomba 蓝山线火车（2h）$6.5'},
-      {icon:'🏔️', text:'Echo Point 三姐妹峰全景（免费）'},
-      {icon:'🚂', text:'Scenic World 森林铁路+缆车 $55'},
-      {icon:'🍜', text:'Leura 小镇午餐 $16'},
-      {icon:'🥾', text:'Leura Cascades 瀑布步道（免费）'},
-      {icon:'🚂', text:'傍晚火车返回 $6.5'},
-    ],
-    mapUrl: 'https://maps.app.goo.gl/?q=Echo+Point+Katoomba',
-    tips: 'Scenic World 森林铁路坡度 52°，世界最陡！蓝山冬天有雾很美，但一定要多穿。',
-  },
-  {
-    id:6, date:'8月13日 周三', icon:'🐨', title:'Taronga 动物园 + Manly',
-    weather: '悉尼港 + Manly', wear:['休闲装','薄外套','帽子'], wearNote:'轮渡上风大',
-    route:[
-      {icon:'⛴️', text:'Circular Quay 轮渡 → Taronga Zoo（10分钟）$4'},
-      {icon:'🦒', text:'Taronga Zoo 5000+动物 $38'},
-      {icon:'📸', text:'长颈鹿区拍歌剧院+大桥+长颈鹿同框'},
-      {icon:'⛴️', text:'轮渡回 → 转乘 Manly Ferry（30分钟）$4'},
-      {icon:'🏖️', text:'Manly Beach + Shelly Beach 徒步'},
-      {icon:'🍕', text:'Manly 晚餐后轮渡回 $16'},
-    ],
-    mapUrl: 'https://maps.app.goo.gl/?q=Taronga+Zoo+Sydney',
-    tips: 'Taronga 轮渡上拍歌剧院是最美角度！动物园建在山坡上，远眺海港。',
-  },
-  {
-    id:7, date:'8月14日 周四', icon:'🎨', title:'博物馆日 · 文艺漫步',
-    weather: '悉尼 CBD', wear:['休闲装','薄外套'], wearNote:'室内为主，轻松一天',
-    route:[
-      {icon:'🖼️', text:'新南威尔士美术馆（免费）'},
-      {icon:'📚', text:'State Library 莎士比亚阅览室（免费）'},
-      {icon:'🏛️', text:'澳洲博物馆 Australian Museum（免费）'},
-      {icon:'🍜', text:'Chinatown 午餐 $12'},
-      {icon:'🏮', text:'Darling Harbour 散步'},
-      {icon:'🍦', text:'Gelato Messina 冰淇淋 $7'},
-    ],
-    mapUrl: 'https://maps.app.goo.gl/?q=Art+Gallery+of+NSW+Sydney',
-    tips: '三大博物馆全免费！适合充电的一天。State Library 阅览室超级出片。',
-  },
-  {
-    id:8, date:'8月15日 周五', icon:'🐋', title:'天涯海角 · 观鲸',
-    weather: 'Watsons Bay', wear:['厚外套','围巾','帽子'], wearNote:'悬崖边风极大，注意保暖',
-    route:[
-      {icon:'⛴️', text:'Circular Quay 轮渡 → Watsons Bay $4'},
-      {icon:'🌊', text:'The Gap 悬崖（免费，悉尼最壮观断崖）'},
-      {icon:'🐋', text:'观鲸！8月高峰，岸边就能看到喷水'},
-      {icon:'🗼', text:'Hornby Lighthouse 红白灯塔环线'},
-      {icon:'🍟', text:'Doyles 炸鱼薯条（百年老店）$14'},
-      {icon:'🏖️', text:'Camp Cove 秘密海滩'},
-      {icon:'🛍️', text:'下午回市区 Pitt St + QVB 逛街'},
-    ],
-    mapUrl: 'https://maps.app.goo.gl/?q=The+Gap+Watsons+Bay',
-    tips: 'Watsons Bay 是悉尼本地人的宝藏地。The Gap 面朝太平洋，8月鲸鱼就在眼前。',
-  },
-  {
-    id:9, date:'8月16日 周六', icon:'🛍️', title:'收官日 · 市集+告别',
-    weather: '悉尼 CBD', wear:['休闲装','薄外套'], wearNote:'最后一天，轻松逛街',
-    route:[
-      {icon:'🦞', text:'悉尼鱼市场 海鲜早午餐 $20'},
-      {icon:'🎪', text:'The Rocks Markets 手工市集'},
-      {icon:'🏛️', text:'QVB 维多利亚女王大厦'},
-      {icon:'☕', text:'Surry Hills 咖啡馆 $8'},
-      {icon:'🌅', text:'Barangaroo 海滨公园落日'},
-      {icon:'🍽️', text:'告别晚餐 $22'},
-      {icon:'🎒', text:'收拾行李 + 检查护照航班'},
-    ],
-    mapUrl: 'https://maps.app.goo.gl/?q=Sydney+Fish+Market',
-    tips: '鱼市场早去（9点前）避开旅行团。纪念品优先买 made in Australia。',
-  },
+const TRIP_DAYS = [
+  {id:1,date:'8月8日 周五',icon:'🛬',title:'抵达悉尼 · 安顿初探',weather:'悉尼市区',wear:['薄外套','长裤','运动鞋'],wearNote:'冬末早晚凉',route:[
+    {icon:'🛬',text:'6:15 抵达悉尼机场 → 海关+取行李'},
+    {icon:'🚌',text:'机场公交 350 路 → Randwick（25分钟，$2.5）'},
+    {icon:'🏠',text:'入住 42/High Street, Randwick'},
+    {icon:'☕',text:'Belmore Rd 早午餐（Clodeli Cafe）'},
+    {icon:'🌊',text:'步行15分钟到 Coogee Beach 散步'},
+    {icon:'🍽️',text:'晚餐：Coogee Pavilion 或 Randwick 泰餐'},
+  ],map:'https://maps.app.goo.gl/?q=42+High+Street+Randwick+NSW',tip:'长途飞行后别排太满。Coogee 海滩从家门口走路15分钟就到。'},
+
+  {id:2,date:'8月9日 周六',icon:'🥾',title:'海岸徒步 Coogee → Bondi',weather:'东部海岸',wear:['运动鞋','薄外套','帽子','防晒'],wearNote:'徒步2.5h，海边风大',route:[
+    {icon:'🥾',text:'从 Coogee Beach 出发（家门口）'},
+    {icon:'📸',text:'→ Gordons Bay → Clovelly → Bronte → Tamarama'},
+    {icon:'🏁',text:'→ Bondi Beach！6km，约2.5h'},
+    {icon:'🍔',text:'午餐：Bondi Tony\'s 汉堡 $12'},
+    {icon:'🏊',text:'Bondi Icebergs 网红泳池打卡'},
+    {icon:'🚌',text:'公交 333 路回 Randwick $2.5'},
+  ],map:'https://maps.app.goo.gl/?q=Coogee+to+Bondi+Coastal+Walk',tip:'8月鲸鱼迁徙高峰，沿途多抬头看海面。运动鞋+带水。'},
+
+  {id:3,date:'8月10日 周日',icon:'🏙️',title:'悉尼地标 · 歌剧院+大桥',weather:'悉尼 CBD',wear:['休闲装','薄外套','好走的鞋'],wearNote:'周日交通 $8.40 封顶',route:[
+    {icon:'🚌',text:'公交 373/374 → Circular Quay $2.5'},
+    {icon:'🏛️',text:'悉尼歌剧院外观 + 拍照'},
+    {icon:'🌿',text:'皇家植物园 → Mrs Macquarie\'s Chair（经典机位）'},
+    {icon:'🌉',text:'海港大桥步行过桥（免费人行道）'},
+    {icon:'🍜',text:'The Rocks 午餐 $14'},
+    {icon:'🎪',text:'The Rocks Markets 周末市集'},
+    {icon:'🌇',text:'Observatory Hill 看夕阳'},
+  ],map:'https://maps.app.goo.gl/?q=Sydney+Opera+House',tip:'周日 Opal 全天 $8.40。歌剧院、大桥、植物园全在步行圈。'},
+
+  {id:4,date:'8月11日 周一',icon:'🐻',title:'⭐ 抱袋熊日！Featherdale',weather:'Doonside 西悉尼',wear:['休闲装','外套','不介意口水的衣服'],wearNote:'户外为主',route:[
+    {icon:'🚂',text:'Central → T1 线 → Doonside 站（1h）$5'},
+    {icon:'🐻',text:'Featherdale Wildlife Park 9:00 开园 $38'},
+    {icon:'🤗',text:'⭐ 袋熊亲密接触 Wombat Encounter $35'},
+    {icon:'🦘',text:'免费手喂袋鼠 + 沙袋鼠'},
+    {icon:'🐨',text:'考拉合影 · 袋獾 · 企鹅巡游'},
+    {icon:'🚂',text:'下午火车返回 $5'},
+  ],map:'https://maps.app.goo.gl/?q=Featherdale+Sydney+Wildlife+Park',tip:'🔴 必须提前在 featherdale.com.au 预约 Wombat Encounter！',isWombat:true},
+
+  {id:5,date:'8月12日 周二',icon:'🏔️',title:'蓝山一日游 · 三姐妹峰',weather:'Katoomba 蓝山',wear:['厚外套','毛衣','围巾','手套'],wearNote:'蓝山比市区冷5-8°C，可能接近0°C',route:[
+    {icon:'🚂',text:'Central → Katoomba 蓝山线（2h）$6.5'},
+    {icon:'🏔️',text:'Echo Point 三姐妹峰全景（免费）'},
+    {icon:'🚂',text:'Scenic World 森林铁路+缆车 $55'},
+    {icon:'🍜',text:'Leura 小镇午餐 $16'},
+    {icon:'🥾',text:'Leura Cascades 瀑布步道（免费）'},
+    {icon:'🚂',text:'傍晚火车返回 $6.5'},
+  ],map:'https://maps.app.goo.gl/?q=Echo+Point+Katoomba',tip:'Scenic World 森林铁路坡度52°，世界最陡！蓝山冬天必多穿。'},
+
+  {id:6,date:'8月13日 周三',icon:'🐨',title:'Taronga 动物园 + Manly',weather:'悉尼港',wear:['休闲装','薄外套','帽子'],wearNote:'轮渡风大',route:[
+    {icon:'⛴️',text:'Circular Quay 轮渡 → Taronga Zoo $4'},
+    {icon:'🦒',text:'Taronga Zoo 5000+动物 $38'},
+    {icon:'📸',text:'长颈鹿区拍歌剧院+大桥同框'},
+    {icon:'⛴️',text:'转乘 Manly Ferry（30分钟）$4'},
+    {icon:'🏖️',text:'Manly Beach + Shelly Beach 徒步'},
+    {icon:'🍕',text:'Manly 晚餐后轮渡回 $16'},
+  ],map:'https://maps.app.goo.gl/?q=Taronga+Zoo+Sydney',tip:'Taronga 轮渡上拍歌剧院是最美角度！'},
+
+  {id:7,date:'8月14日 周四',icon:'🎨',title:'博物馆日 · 文艺漫步',weather:'悉尼 CBD',wear:['休闲装','薄外套'],wearNote:'室内为主',route:[
+    {icon:'🖼️',text:'新南威尔士美术馆（免费）'},
+    {icon:'📚',text:'State Library 莎士比亚阅览室（免费）'},
+    {icon:'🏛️',text:'澳洲博物馆（免费）'},
+    {icon:'🍜',text:'Chinatown 午餐 $12'},
+    {icon:'🏮',text:'Darling Harbour 散步'},
+    {icon:'🍦',text:'Gelato Messina 冰淇淋 $7'},
+  ],map:'https://maps.app.goo.gl/?q=Art+Gallery+of+NSW+Sydney',tip:'三大博物馆全免费！State Library 阅览室超上镜。'},
+
+  {id:8,date:'8月15日 周五',icon:'🐋',title:'天涯海角 · 观鲸',weather:'Watsons Bay',wear:['厚外套','围巾','帽子'],wearNote:'悬崖边风极大',route:[
+    {icon:'⛴️',text:'Circular Quay 轮渡 → Watsons Bay $4'},
+    {icon:'🌊',text:'The Gap 悬崖（免费，悉尼最壮观断崖）'},
+    {icon:'🐋',text:'观鲸！8月高峰，岸边就能看到喷水'},
+    {icon:'🗼',text:'Hornby Lighthouse 红白灯塔环线'},
+    {icon:'🍟',text:'Doyles 炸鱼薯条 百年老店 $14'},
+    {icon:'🏖️',text:'Camp Cove 秘密海滩'},
+  ],map:'https://maps.app.goo.gl/?q=The+Gap+Watsons+Bay',tip:'Watsons Bay 是悉尼本地人的宝藏地。8月鲸鱼就在眼前！'},
+
+  {id:9,date:'8月16日 周六',icon:'🛍️',title:'收官日 · 市集+告别',weather:'悉尼 CBD',wear:['休闲装','薄外套'],wearNote:'最后一天轻松逛街',route:[
+    {icon:'🦞',text:'悉尼鱼市场 海鲜早午餐 $20'},
+    {icon:'🎪',text:'The Rocks Markets 手工市集'},
+    {icon:'🏛️',text:'QVB 维多利亚女王大厦'},
+    {icon:'☕',text:'Surry Hills 独立咖啡馆 $8'},
+    {icon:'🌅',text:'Barangaroo 海滨公园落日'},
+    {icon:'🍽️',text:'告别晚餐 $22'},
+    {icon:'🎒',text:'收拾行李 + 检查护照航班'},
+  ],map:'https://maps.app.goo.gl/?q=Sydney+Fish+Market',tip:'鱼市场早去（9点前）避开旅行团。纪念品买 made in Australia。'},
 ];
 
-const TIPS = [
-  '🚌 公交 Opal 卡周日全天 $8.40 封顶，随便坐！',
-  '🐋 8月是座头鲸南迁高峰，Coogee/Bondi/Watsons Bay 海边就能看到',
-  '🌡️ 悉尼冬末 8-17°C，蓝山更冷 0-8°C，带够衣服',
-  '💧 澳洲自来水可以直接喝，带个水杯就行',
-  '📱 机场买 Telstra 预付卡，$15 就有够用 10 天的流量',
-  '🧴 澳洲紫外线超强，阴天也要涂防晒',
-  '🚂 蓝山火车不用提前买票，Opal 卡刷卡进站就行',
-  '🍽️ 餐厅一般不用给小费，但咖啡馆柜台上 tips jar 随意',
-];
+// ============================================================
+// STATE
+// ============================================================
+const STORAGE_KEY = 'sydney_v4';
+function getState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"done":{},"expenses":[],"notes":{},"checklist":{}}'); }
+  catch(e) { return {done:{},expenses:[],notes:{},checklist:{}}; }
+}
+function setState(s) { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
 
 // ============================================================
 // RENDER DAY CARDS
 // ============================================================
-function renderDayCards(todayIdx) {
+function renderDayCards() {
+  const todayIdx = getTodayIndex();
   const container = document.getElementById('day-cards');
-  container.innerHTML = DAYS.map((d, i) => {
-    const isToday = i === todayIdx;
-    const isWombat = d.isWombatDay;
-    return `
-    <div class="day-card${isToday ? ' today-card' : ''}${isWombat ? '' : ''}" data-day="${d.id}">
-      <div class="day-card-header" onclick="toggleDayCard(this)">
+  container.innerHTML = TRIP_DAYS.map(d => {
+    const isToday = todayIdx === (d.id - 1);
+    const isWombat = d.isWombat;
+    return `<div class="day-card${isToday?' today':''}" data-day="${d.id}">
+      <div class="day-card-header" onclick="this.closest('.day-card').classList.toggle('open')">
         <div class="day-num">${d.id}</div>
         <div class="day-info">
-          <div class="day-date">${d.date}${isToday ? '<span class="today-badge">今天</span>' : ''}${isWombat ? ' 🐻' : ''}</div>
+          <div class="day-date">${d.date}${isToday?' <b style=color:var(--coral)>今天</b>':''}${isWombat?' 🐻':''}</div>
           <div class="day-title">${d.icon} ${d.title}</div>
         </div>
         <div class="day-check" onclick="event.stopPropagation();toggleDone(${d.id})"></div>
       </div>
-      <div class="day-card-body">
-        <!-- Weather/Wear -->
-        <div class="info-block">
-          <div class="info-label">🌤️ ${d.weather}</div>
-          <div style="font-size:.8em;color:var(--muted);margin-bottom:4px;">${d.wearNote}</div>
-          <div class="wear-tags">${d.wear.map(w => '<span class="wear-tag">'+w+'</span>').join('')}</div>
-        </div>
-
-        <!-- Route -->
-        <div class="info-block">
-          <div class="info-label">🗺️ 出行路线</div>
-          ${d.route.map((s,i) => {
-            const steps = [s];
-            if (i < d.route.length - 1 && (i === 0 || i === Math.floor(d.route.length/2) || i === d.route.length-2)) {
-              // add connector every few steps
-            }
-            return `<div class="route-step"><div class="route-icon">${s.icon}</div><div>${s.text}</div></div>`;
-          }).join('')}
-          <a class="map-link" href="${d.mapUrl}" target="_blank" rel="noopener">🗺️ 在 Google Maps 中打开路线</a>
-        </div>
-
-        <!-- Tips -->
-        <div class="info-block" style="background:#fef9f4;border-radius:10px;padding:8px 12px;border-left:3px solid #e8c56d;">
-          <div style="font-size:.78em;color:#6b5e3e;">💡 ${d.tips}</div>
-        </div>
-
-        <!-- Budget tracker -->
-        <div class="info-block">
-          <div class="info-label">💰 今日花费</div>
-          <div id="expenses-${d.id}" style="font-size:.78em;"></div>
-          <div class="budget-input-row">
-            <input type="text" placeholder="项目名称" id="exp-name-${d.id}">
-            <input type="number" placeholder="$金额" id="exp-amt-${d.id}" style="max-width:80px;">
-            <button onclick="addExpense(${d.id})">记</button>
-          </div>
-        </div>
-
-        <!-- Notes -->
-        <div class="info-block">
-          <div class="info-label">📝 旅行日记</div>
-          <textarea class="note-area" id="note-${d.id}" placeholder="今天的感受、遇到的人、好吃的东西..." onchange="saveNote(${d.id})"></textarea>
-        </div>
+      <div class="day-body">
+        <div class="info-label">🌤️ ${d.weather} · 穿衣建议</div>
+        <div style="font-size:.75em;color:var(--muted);">${d.wearNote}</div>
+        <div class="wear-tags">${d.wear.map(w=>'<span class=wear-tag>'+w+'</span>').join('')}</div>
+        <div class="info-label">🗺️ 出行路线</div>
+        ${d.route.map(s=>`<div class=route-step><div class=route-icon>${s.icon}</div><div>${s.text}</div></div>`).join('')}
+        <a class="map-link" href="${d.map}" target="_blank" rel="noopener">🗺️ 在 Google Maps 中打开</a>
+        <div class="tip-box">💡 ${d.tip}</div>
       </div>
     </div>`;
   }).join('');
-
-  // Restore state
   restoreState();
 }
 
 // ============================================================
-// TOGGLE DAY CARD
+// WEATHER (Open-Meteo, free, no API key)
 // ============================================================
-function toggleDayCard(header) {
-  const card = header.closest('.day-card');
-  card.classList.toggle('open');
+const WEATHER_CODES = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'🌨️',80:'🌧️',81:'🌧️',82:'🌧️',95:'⛈️',96:'⛈️',99:'⛈️'};
+const WEATHER_DESC = {0:'晴朗',1:'大部晴',2:'多云',3:'阴',45:'雾',48:'雾凇',51:'小雨',61:'雨',80:'阵雨',95:'雷雨'};
+
+let weatherCache = null;
+let weatherCacheTime = 0;
+
+async function fetchWeather(force = false) {
+  const now = Date.now();
+  if (!force && weatherCache && (now - weatherCacheTime < 1800000)) {
+    renderWeather(weatherCache);
+    return;
+  }
+
+  try {
+    const resp = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-33.87&longitude=151.21&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode&timezone=Australia/Sydney&forecast_days=7');
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    weatherCache = data;
+    weatherCacheTime = now;
+    renderWeather(data);
+  } catch(e) {
+    console.log('Weather fetch failed:', e.message);
+    // Show fallback
+    document.getElementById('w-icon').textContent = '🌤️';
+    document.getElementById('w-temp').textContent = '离线模式';
+    document.getElementById('w-desc').textContent = '悉尼冬末 8-17°C（点击刷新重试）';
+    document.getElementById('weather-forecast').innerHTML = '';
+  }
+}
+
+function renderWeather(data) {
+  const today = data.daily;
+  const code = today.weathercode[0];
+  const icon = WEATHER_CODES[code] || '🌤️';
+  const desc = WEATHER_DESC[code] || '多云';
+  const max = Math.round(today.temperature_2m_max[0]);
+  const min = Math.round(today.temperature_2m_min[0]);
+
+  document.getElementById('w-icon').textContent = icon;
+  document.getElementById('w-temp').textContent = min + '° – ' + max + '°C ' + desc;
+  document.getElementById('w-desc').textContent = '悉尼 · ' + new Date().toLocaleDateString('zh-CN',{weekday:'long'});
+
+  // Update tip based on weather
+  const tip = max < 14 ? '🥶 今天偏冷！厚外套+围巾，最高仅 ' + max + '°C' :
+              max > 22 ? '☀️ 暖和的一天！轻便出行，最高 ' + max + '°C' :
+              '🌤️ 气温适中 ' + min + '°–' + max + '°C，适合出游';
+  document.getElementById('tip-text').textContent = tip;
+
+  // 7-day forecast
+  const dayNames = ['周日','周一','周二','周三','周四','周五','周六'];
+  const forecastEl = document.getElementById('weather-forecast');
+  forecastEl.innerHTML = today.time.map((t, i) => {
+    const d = new Date(t + 'T00:00:00');
+    const label = i === 0 ? '今天' : (i === 1 ? '明天' : dayNames[d.getDay()]);
+    const code = today.weathercode[i];
+    const icon = WEATHER_CODES[code] || '🌤️';
+    const max = Math.round(today.temperature_2m_max[i]);
+    const min = Math.round(today.temperature_2m_min[i]);
+    const rain = today.precipitation_probability_max[i];
+    return `<div class="wf-day${i===0?' today':''}">
+      <div class="wf-label">${label}</div>
+      <div class="wf-icon">${icon}</div>
+      <div class="wf-temp">${min}° ${max}°</div>
+      <div class="wf-rain">${rain>0?'💧'+rain+'%':''}</div>
+    </div>`;
+  }).join('');
+
+  // Update wear tags for all days based on first-day weather
+  updateWearSuggestions(max);
+}
+
+function updateWearSuggestions(todayMax) {
+  // Use weather to adjust day 1-3,7,9 wear suggestions
+  const hotDay = todayMax > 22;
+  const coldDay = todayMax < 13;
+  document.querySelectorAll('.wear-tags').forEach((el, i) => {
+    if (hotDay && (i === 0 || i === 1 || i === 2)) {
+      el.innerHTML = '<span class=wear-tag>短袖</span><span class=wear-tag>薄外套</span><span class=wear-tag>防晒</span>';
+    } else if (coldDay && (i === 0 || i === 1 || i === 2)) {
+      el.innerHTML = '<span class=wear-tag>厚外套</span><span class=wear-tag>毛衣</span><span class=wear-tag>围巾</span>';
+    }
+  });
+}
+
+// ============================================================
+// EXPENSE TRACKER
+// ============================================================
+const CAT_COLORS = {'🍽️':'#f07b6b','🚌':'#4a9db5','🎫':'#e8c56d','🛍️':'#a8d8b9','🏠':'#8b7d6b','📱':'#7db8c9','🎁':'#f8a5b6','💊':'#bbb'};
+const CAT_NAMES = {'🍽️':'餐饮','🚌':'交通','🎫':'门票','🛍️':'购物','🏠':'住宿','📱':'通讯','🎁':'礼物','💊':'其他'};
+
+function getExpenses() {
+  return getState().expenses || [];
+}
+
+function addExpense() {
+  const cat = document.getElementById('new-cat').value;
+  const day = parseInt(document.getElementById('new-day').value);
+  const name = document.getElementById('new-name').value.trim();
+  const amt = parseFloat(document.getElementById('new-amt').value);
+
+  if (!name || isNaN(amt) || amt <= 0) { showToast('请完整填写'); return; }
+
+  const saved = getState();
+  saved.expenses.push({id:Date.now(), cat, day, name, amt, time:new Date().toISOString()});
+  setState(saved);
+  renderExpenses();
+  updateSyncStatus();
+
+  document.getElementById('new-name').value = '';
+  document.getElementById('new-amt').value = '';
+  showToast('💵 ' + name + ' $' + amt.toFixed(2));
+}
+
+function deleteExpense(id) {
+  const saved = getState();
+  saved.expenses = saved.expenses.filter(e => e.id !== id);
+  setState(saved);
+  renderExpenses();
+  updateSyncStatus();
+}
+
+function renderExpenses() {
+  const expenses = getExpenses();
+  const budget = 574;
+
+  // Sort by time desc
+  expenses.sort((a,b) => b.id - a.id);
+
+  // Totals
+  const total = expenses.reduce((s,e) => s + e.amt, 0);
+  const remaining = budget - total;
+
+  document.getElementById('total-spent').textContent = '$' + total.toFixed(0);
+  document.getElementById('total-remaining').textContent = '$' + remaining.toFixed(0);
+  document.getElementById('total-remaining').style.color = remaining >= 0 ? 'var(--green)' : 'var(--red)';
+
+  // Category breakdown
+  const catTotals = {};
+  expenses.forEach(e => { catTotals[e.cat] = (catTotals[e.cat] || 0) + e.amt; });
+  const catColors = [];
+  const catLegend = [];
+  Object.entries(catTotals).forEach(([cat, amt]) => {
+    const pct = total > 0 ? Math.round(amt / total * 100) : 0;
+    catColors.push(`<div class="cat-chunk" style="width:${pct}%;background:${CAT_COLORS[cat]||'#bbb'}"></div>`);
+    catLegend.push(`<span>${cat} ${CAT_NAMES[cat]||cat} $${amt.toFixed(0)}</span>`);
+  });
+  document.getElementById('category-bar').innerHTML = catColors.join('');
+  document.getElementById('category-legend').innerHTML = catLegend.join('');
+
+  // Expense list (last 30)
+  const listEl = document.getElementById('expense-list');
+  listEl.innerHTML = expenses.slice(0, 30).map(e => {
+    const d = new Date(e.time);
+    const dateStr = (d.getMonth()+1)+'/'+d.getDate();
+    return `<div class="expense-item">
+      <div class="ei-left">
+        <span class="ei-cat">${e.cat}</span>
+        <div>
+          <div class="ei-name">${e.name}</div>
+          <div class="ei-day">Day ${e.day} · ${dateStr}</div>
+        </div>
+      </div>
+      <span class="ei-amt">$${e.amt.toFixed(2)}</span>
+      <span class="ei-del" onclick="deleteExpense(${e.id})">✕</span>
+    </div>`;
+  }).join('') || '<div style="text-align:center;color:#ccc;padding:20px;">还没有记账，开始记第一笔吧 ✍️</div>';
+
+  // Also update progress bar budget summary on plan tab
+  updateProgress();
+}
+
+function exportCSV() {
+  const expenses = getExpenses();
+  let csv = '日期,Day,分类,项目,金额(AUD)\n';
+  expenses.forEach(e => {
+    const d = new Date(e.time);
+    csv += `${d.toLocaleDateString('zh-CN')},Day ${e.day},${CAT_NAMES[e.cat]||e.cat},${e.name},${e.amt.toFixed(2)}\n`;
+  });
+  const blob = new Blob(['﻿' + csv], {type:'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = '悉尼旅行花费.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('📥 CSV 已下载');
+}
+
+// ============================================================
+// CLOUD SYNC (via GitHub API - stores expenses.json in repo)
+// ============================================================
+let githubToken = localStorage.getItem('sydney_gh_token') || '';
+
+function updateSyncStatus() {
+  const dot = document.getElementById('sync-dot');
+  const text = document.getElementById('sync-text');
+  const btn = document.getElementById('sync-btn');
+
+  if (!githubToken) {
+    dot.className = 'sync-dot unsynced';
+    text.textContent = '本地存储 · 可配置云同步';
+    btn.textContent = '☁️ 配置云同步';
+    btn.disabled = false;
+    btn.onclick = setupCloudSync;
+  } else {
+    dot.className = 'sync-dot unsynced';
+    text.textContent = '本地已保存 · 点击同步到云端';
+    btn.textContent = '☁️ 同步到云端';
+    btn.disabled = false;
+    btn.onclick = syncToCloud;
+  }
+}
+
+function setupCloudSync() {
+  const token = prompt('请输入 GitHub Personal Access Token（需要 repo 权限）：\n\n去 github.com/settings/tokens 创建一个经典 token，勾选 repo\n\nToken 只存在你浏览器本地，不会上传到任何服务器。', githubToken);
+  if (token && token.trim()) {
+    githubToken = token.trim();
+    localStorage.setItem('sydney_gh_token', githubToken);
+    updateSyncStatus();
+    showToast('✅ Token 已保存，可以同步了');
+  }
+}
+
+async function syncToCloud() {
+  if (!githubToken) { setupCloudSync(); return; }
+
+  const btn = document.getElementById('sync-btn');
+  btn.textContent = '⏳ 同步中...';
+  btn.disabled = true;
+
+  try {
+    const expenses = getExpenses();
+    const content = btoa(unescape(encodeURIComponent(JSON.stringify(expenses, null, 2))));
+
+    // Get existing file SHA
+    let sha = '';
+    try {
+      const resp = await fetch('https://api.github.com/repos/gyx6609/sydney-trip/contents/expenses.json', {
+        headers: {'Authorization': 'Bearer ' + githubToken, 'Accept': 'application/vnd.github+json'}
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        sha = data.sha;
+      }
+    } catch(e) {}
+
+    // Upload
+    const body = JSON.stringify({message:'Update expenses',content,sha:sha||undefined,branch:'master'});
+    const resp = await fetch('https://api.github.com/repos/gyx6609/sydney-trip/contents/expenses.json', {
+      method: 'PUT',
+      headers: {'Authorization': 'Bearer ' + githubToken, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github+json'},
+      body
+    });
+
+    if (resp.ok) {
+      document.getElementById('sync-dot').className = 'sync-dot synced';
+      document.getElementById('sync-text').textContent = '已同步到云端 ✓';
+      showToast('☁️ 已同步到 GitHub');
+    } else {
+      const err = await resp.json();
+      throw new Error(err.message || 'Sync failed');
+    }
+  } catch(e) {
+    document.getElementById('sync-dot').className = 'sync-dot error';
+    document.getElementById('sync-text').textContent = '同步失败：' + e.message;
+    showToast('❌ 同步失败，检查 Token 权限');
+  }
+  btn.textContent = '☁️ 同步到云端';
+  btn.disabled = false;
 }
 
 // ============================================================
@@ -612,118 +798,51 @@ function toggleDone(dayId) {
   saved.done[dayId] = !saved.done[dayId];
   setState(saved);
   restoreState();
-  updateProgress();
-  showToast(saved.done[dayId] ? '✅ Day ' + dayId + ' 打卡完成！' : '取消打卡');
+  const dayTitle = TRIP_DAYS[dayId-1].title;
+  showToast(saved.done[dayId] ? '✅ ' + dayTitle + ' 完成！' : '取消打卡');
 }
 
 // ============================================================
-// EXPENSE TRACKER
+// PROGRESS
 // ============================================================
-function addExpense(dayId) {
-  const nameEl = document.getElementById('exp-name-' + dayId);
-  const amtEl = document.getElementById('exp-amt-' + dayId);
-  const name = nameEl.value.trim();
-  const amt = parseFloat(amtEl.value);
-  if (!name || isNaN(amt) || amt <= 0) { showToast('请填写项目名称和金额'); return; }
-
+function updateProgress() {
   const saved = getState();
-  if (!saved.expenses[dayId]) saved.expenses[dayId] = [];
-  saved.expenses[dayId].push({name, amt, time: new Date().toISOString()});
-  setState(saved);
+  const done = Object.values(saved.done).filter(Boolean).length;
+  document.getElementById('progress-fill').style.width = (done/9*100) + '%';
+  document.getElementById('progress-label').textContent = done + '/9';
 
-  nameEl.value = '';
-  amtEl.value = '';
-  renderExpenses(dayId);
-  updateBudgetSummary();
-  showToast('💵 ' + name + ' $' + amt.toFixed(2));
-}
-
-function deleteExpense(dayId, idx) {
-  const saved = getState();
-  saved.expenses[dayId].splice(idx, 1);
-  setState(saved);
-  renderExpenses(dayId);
-  updateBudgetSummary();
-}
-
-function renderExpenses(dayId) {
-  const saved = getState();
-  const expenses = saved.expenses[dayId] || [];
-  const container = document.getElementById('expenses-' + dayId);
-  if (!container) return;
-  const total = expenses.reduce((s, e) => s + e.amt, 0);
-  container.innerHTML = expenses.map((e, i) =>
-    `<div class="expense-item">
-      <span>${e.name}</span>
-      <span>$${e.amt.toFixed(2)} <span class="expense-del" onclick="deleteExpense(${dayId},${i})">✕</span></span>
-    </div>`
-  ).join('') + (expenses.length ? `<div style="font-weight:600;font-size:.78em;text-align:right;padding-top:4px;">小计: $${total.toFixed(2)}</div>` : '');
+  // Budget in progress bar area
+  const expenses = saved.expenses || [];
+  const total = expenses.reduce((s,e) => s + e.amt, 0);
+  // Update the budget section if visible
+  const spentEl = document.getElementById('total-spent');
+  const remainEl = document.getElementById('total-remaining');
+  if (spentEl) spentEl.textContent = '$' + total.toFixed(0);
+  if (remainEl) {
+    const remaining = 574 - total;
+    remainEl.textContent = '$' + remaining.toFixed(0);
+    remainEl.style.color = remaining >= 0 ? 'var(--green)' : 'var(--red)';
+  }
 }
 
 // ============================================================
-// NOTES
+// RESTORE & RENDER
 // ============================================================
-function saveNote(dayId) {
-  const el = document.getElementById('note-' + dayId);
-  if (!el) return;
-  const saved = getState();
-  saved.notes[dayId] = el.value;
-  setState(saved);
-}
-
-// ============================================================
-// STATE MANAGEMENT
-// ============================================================
-function getState() {
-  try { return JSON.parse(localStorage.getItem('sydney_trip_v3') || '{"done":{},"expenses":{},"notes":{},"checklist":{}}'); }
-  catch(e) { return {done:{}, expenses:{}, notes:{}, checklist:{}}; }
-}
-function setState(s) { localStorage.setItem('sydney_trip_v3', JSON.stringify(s)); }
-
 function restoreState() {
   const saved = getState();
-  // Restore done states
   Object.entries(saved.done).forEach(([dayId, isDone]) => {
     const card = document.querySelector('.day-card[data-day="' + dayId + '"]');
     if (card) {
       if (isDone) card.classList.add('done'); else card.classList.remove('done');
     }
   });
-  // Restore notes
-  Object.entries(saved.notes).forEach(([dayId, note]) => {
-    const el = document.getElementById('note-' + dayId);
-    if (el && note) el.value = note;
-  });
-  // Restore expenses
-  DAYS.forEach(d => renderExpenses(d.id));
-  // Restore checklist
   Object.entries(saved.checklist).forEach(([id, checked]) => {
     const el = document.getElementById('chk-' + id);
     if (el) el.checked = checked;
   });
   updateProgress();
-  updateBudgetSummary();
-}
-
-function updateProgress() {
-  const saved = getState();
-  const doneCount = Object.values(saved.done).filter(Boolean).length;
-  const pct = Math.round(doneCount / 9 * 100);
-  document.getElementById('progress-bar').style.width = pct + '%';
-  document.getElementById('progress-label').textContent = doneCount + '/9';
-}
-
-function updateBudgetSummary() {
-  const saved = getState();
-  let total = 0;
-  Object.values(saved.expenses).forEach(arr => {
-    if (arr) arr.forEach(e => total += e.amt);
-  });
-  const budget = 574;
-  const remaining = budget - total;
-  document.getElementById('total-spent').textContent = '$' + total.toFixed(0) + ' AUD';
-  document.getElementById('budget-remaining').textContent = '$' + remaining.toFixed(0) + ' AUD';
-  document.getElementById('budget-remaining').style.color = remaining >= 0 ? 'var(--green)' : 'var(--coral)';
+  renderExpenses();
+  updateSyncStatus();
 }
 
 // ============================================================
@@ -731,7 +850,7 @@ function updateBudgetSummary() {
 // ============================================================
 function saveChecklist() {
   const saved = getState();
-  ['visa','wombat','taronga','scenic','sim','map','opal','insurance','plug'].forEach(id => {
+  ['visa','wombat','taronga','scenic','sim','map','opal','insurance','plug','coat'].forEach(id => {
     const el = document.getElementById('chk-' + id);
     if (el) saved.checklist[id] = el.checked;
   });
@@ -739,70 +858,23 @@ function saveChecklist() {
 }
 
 // ============================================================
-// WEATHER (Open-Meteo free API - no key needed)
-// ============================================================
-async function loadWeather() {
-  try {
-    // Sydney coordinates
-    const resp = await fetch('https://api.open-meteo.com/v1/forecast?latitude=-33.87&longitude=151.21&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_max,weathercode&timezone=Australia/Sydney&forecast_days=7');
-    const data = await resp.json();
-    const weatherCodes = {0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',51:'🌧️',61:'🌧️',80:'🌧️',95:'⛈️'};
-
-    const now = new Date();
-    const ribbon = document.getElementById('weather-ribbon');
-    ribbon.innerHTML = data.daily.time.map((t, i) => {
-      const d = new Date(t + 'T00:00:00');
-      const dayNames = ['周日','周一','周二','周三','周四','周五','周六'];
-      const label = i === 0 ? '今天' : (i === 1 ? '明天' : dayNames[d.getDay()]);
-      const code = data.daily.weathercode[i];
-      const icon = weatherCodes[code] || '🌤️';
-      const max = Math.round(data.daily.temperature_2m_max[i]);
-      const min = Math.round(data.daily.temperature_2m_min[i]);
-      const rain = data.daily.precipitation_probability_max[i];
-      const isToday = i === 0;
-      return `<div class="weather-day${isToday ? ' today' : ''}">
-        <div class="wd-label">${label}</div>
-        <div class="wd-icon">${icon}</div>
-        <div class="wd-temp">${min}°–${max}°</div>
-        <div class="wd-rain">${rain ? '💧'+rain+'%' : ''}</div>
-      </div>`;
-    }).join('');
-
-    // Update wear tags based on weather
-    const todayMax = Math.round(data.daily.temperature_2m_max[0]);
-    const todayMin = Math.round(data.daily.temperature_2m_min[0]);
-    const tipText = todayMax < 15
-      ? '🥶 今天偏冷，记得穿厚外套！最高 ' + todayMax + '°C'
-      : todayMax > 22
-        ? '☀️ 今天暖和，轻便出行！最高 ' + todayMax + '°C'
-        : '🌤️ 今天气温适中 ' + todayMin + '°–' + todayMax + '°C，适合出游';
-    document.getElementById('tip-text').textContent = tipText;
-
-  } catch(e) {
-    document.getElementById('weather-ribbon').innerHTML =
-      '<div style="font-size:.8em;color:var(--muted);padding:10px;">🌤️ 天气加载失败（离线模式）<br><span style="font-size:.7em;">悉尼冬末 8-17°C，蓝山更冷</span></div>';
-    console.log('Weather fetch error:', e.message);
-  }
-}
-
-// ============================================================
-// TIP ROTATION
-// ============================================================
-let tipIdx = 0;
-function rotateTip() {
-  document.getElementById('tip-text').textContent = TIPS[tipIdx % TIPS.length];
-  tipIdx++;
-}
-setInterval(rotateTip, 8000);
-
-// ============================================================
-// TAB SWITCHING
+// TABS
 // ============================================================
 function switchTab(tab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   document.getElementById('tab-' + tab).classList.add('active');
-  document.querySelector('.nav-btn[onclick*="' + tab + '"]').classList.add('active');
+  document.querySelector('.nav-btn[onclick*="'+tab+'"]').classList.add('active');
+  if (tab === 'money') renderExpenses();
+}
+
+// ============================================================
+// TODAY INDEX
+// ============================================================
+function getTodayIndex() {
+  const now = new Date();
+  const start = new Date('2025-08-08T06:15:00+10:00');
+  return Math.floor((now - start) / 86400000);
 }
 
 // ============================================================
@@ -812,35 +884,28 @@ function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2000);
+  setTimeout(() => t.classList.remove('show'), 1800);
 }
 
 // ============================================================
 // INIT
 // ============================================================
-function getTodayIndex() {
-  const now = new Date();
-  const start = new Date('2025-08-08T06:15:00+10:00');
-  const diff = now - start;
-  return Math.floor(diff / 86400000); // 0 = Day 1, 1 = Day 2, etc.
-}
+renderDayCards();
+fetchWeather();
+updateSyncStatus();
 
-// Determine which day is "today" for highlighting
+// Load GitHub token from localStorage
+githubToken = localStorage.getItem('sydney_gh_token') || '';
+updateSyncStatus();
+
+// Open today's card if during trip
 const todayIdx = getTodayIndex();
-const activeDays = todayIdx >= 0 && todayIdx < 9;
-
-renderDayCards(activeDays ? todayIdx : -1);
-loadWeather();
-restoreState();
-
-// Show "today" card open if during trip
-if (activeDays) {
-  const todayCard = document.querySelector('.day-card[data-day="' + (todayIdx + 1) + '"]');
-  if (todayCard) todayCard.classList.add('open');
+if (todayIdx >= 0 && todayIdx < 9) {
+  setTimeout(() => {
+    const card = document.querySelector('.day-card[data-day="' + (todayIdx + 1) + '"]');
+    if (card) card.classList.add('open');
+  }, 300);
 }
-
-// Rotate tips
-rotateTip();
 </script>
 </body>
 </html>
